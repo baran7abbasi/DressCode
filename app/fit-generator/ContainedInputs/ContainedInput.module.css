@@ -2,14 +2,13 @@
 	display: flex;           /* Use flexbox */
 	justify-content: left; /* Align content to the right */
 	margin-top: -50px;
-	width: 50%;            /* Full width */
-	margin-right: -200px;
+	width: 100%;            /* Full width */
   }
   
   .inputGroup {
 	border-radius: 50px;
 	justify-content: left;
-	width: 100%;             /* Take up half the page */
+	width: 50%;             /* Take up half the page */
 	padding: 30px 70px 30px 40px;       /* Optional padding for aesthetics */
 	background-color: var(--mantine-color-dark-5);
   }
