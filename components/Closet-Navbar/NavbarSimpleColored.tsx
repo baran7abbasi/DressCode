@@ -73,7 +73,7 @@ export function NavbarSimpleColored() {
 	));
 
 	return (
-		<div style={{ display: 'flex' }}>
+		<div style={{ display: 'flex', height: '100%', width: '100vw' }}>
 			<nav className={classes.navbar}>
 				<div className={classes.navbarMain}>
 					<Group className={classes.header} justify='space-between'>
@@ -94,7 +94,9 @@ export function NavbarSimpleColored() {
 					{links}
 				</div>
 			</nav>
-			<div style={{ padding: '20px', flexGrow: 1 }}>{pageContent[active]}</div>
+			<div style={{ padding: '20px', flexGrow: 1, height: '100vh' }}>
+				{pageContent[active]}
+			</div>
 		</div>
 	);
 }

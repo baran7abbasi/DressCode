@@ -1,35 +1,48 @@
 'use client';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Text, Group, Button, rem, useMantineTheme } from '@mantine/core';
 import { Dropzone, MIME_TYPES } from '@mantine/dropzone';
 import { IconCloudUpload, IconX, IconDownload } from '@tabler/icons-react';
 import classes from './DropzoneButton.module.css';
 
-export function DropzoneButton() {
+// Accept onUpload as a prop
+export function DropzoneButton({ onUpload }) {
 	const theme = useMantineTheme();
 	const openRef = useRef<() => void>(null);
+
+	const [files, setFiles] = useState<File[]>([]); // Store uploaded files
+
+	const handleDrop = (droppedFiles: File[]) => {
+		setFiles(droppedFiles);
+	};
+
+	const handleUpload = () => {
+		if (files.length > 0) {
+			// Call the onUpload function with the image files
+			console.log('file is being uploaded');
+			onUpload(files); // Use the passed prop
+		}
+	};
 
 	return (
 		<div className={classes.wrapper}>
 			<Dropzone
 				openRef={openRef}
-				onDrop={() => {}}
+				onDrop={handleDrop}
 				className={classes.dropzone}
 				radius='md'
-				accept={[
-					MIME_TYPES.png,
-					MIME_TYPES.jpeg,
-					MIME_TYPES.svg,
-					MIME_TYPES.gif,
-				]} //'image/*' // Accept only image files
+				accept={[MIME_TYPES.png, MIME_TYPES.jpeg]} // Accept only image files
 				maxSize={30 * 1024 ** 2} // 30 MB limit
 			>
 				<div style={{ pointerEvents: 'none' }}>
 					<Group justify='center'>
 						<Dropzone.Accept>
 							<IconDownload
-								style={{ width: rem(50), height: rem(50) }}
-								color={theme.colors.blue[6]}
+								style={{
+									width: rem(50),
+									height: rem(50),
+									color: 'var(--mantine-color-pink-6)',
+								}}
 								stroke={1.5}
 							/>
 						</Dropzone.Accept>
@@ -64,7 +77,10 @@ export function DropzoneButton() {
 				className={classes.control}
 				size='md'
 				radius='xl'
-				onClick={() => openRef.current?.()}
+				onClick={() => {
+					openRef.current?.(); // Open file dialog
+					handleUpload(); // Call handleUpload to upload selected files
+				}}
 			>
 				Select files
 			</Button>
