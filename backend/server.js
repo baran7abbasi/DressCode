@@ -151,21 +151,20 @@ app.get('/clothing', async (req, res) => {
 	try {
 		const { category, userId } = req.query;
 
-		if (!category || !userId) {
-			return res
-				.status(400)
-				.json({ error: 'Category and userId are required' });
+		if (!userId) {
+			return res.status(400).json({ error: 'User ID is required' });
 		}
 
-		const clothingItems = await Image.find({
-			category: category,
-			userId: userId,
-		});
+		const query = { userId };
+		if (category) {
+			query.category = category;
+		}
 
-		// Transform the paths to just return the filename
+		const clothingItems = await Image.find(query);
+
 		const transformedItems = clothingItems.map((item) => ({
 			...item.toObject(),
-			path: item.path.split('/').pop(), // Just get the filename
+			path: item.path.split('/').pop(),
 		}));
 
 		res.json(transformedItems);
