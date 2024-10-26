@@ -48,7 +48,7 @@ function ClothingCard({ image, name }: CardProps) {
 	);
 }
 
-export default function Bottoms() {
+export default function JacketsSweaters() {
 	const [clothingItems, setClothingItems] = useState<ClothingItem[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
@@ -65,7 +65,7 @@ export default function Bottoms() {
 
 				const response = await axios.get(`http://localhost:5001/clothing`, {
 					params: {
-						category: 'BOTTOMS',
+						category: 'JACKETS/SWEATERS',
 						userId: userId,
 					},
 				});
@@ -86,7 +86,7 @@ export default function Bottoms() {
 	if (loading) return <Text>Loading...</Text>;
 	if (error) return <Text color='red'>{error}</Text>;
 	if (clothingItems.length === 0)
-		return <Text>No bottoms found. Try adding some!</Text>;
+		return <Text>No jackets or sweaters found. Try adding some!</Text>;
 
 	const slides = clothingItems.map((item) => {
 		console.log('Item path:', item.path);

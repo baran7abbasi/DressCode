@@ -16,7 +16,7 @@ import About from './about/page';
 import Tops from './tops/page';
 import Bottoms from './bottoms/page';
 import Shoes from './shoes/page';
-import Jackets from './jackets/page';
+import Jackets from './jacketssweaters/page';
 import Accessories from './accessories/page';
 import AddNew from './add-new/page';
 

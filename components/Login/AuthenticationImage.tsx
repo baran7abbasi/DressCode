@@ -17,7 +17,7 @@ import classes from './AuthenticationImage.module.css';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { setUserId } from '../../utility/authUtility';
+import { setUserId, setUserName } from '../../utility/authUtility';
 
 export function AuthenticationImage() {
 	const router = useRouter();
@@ -54,6 +54,7 @@ export function AuthenticationImage() {
 				const userId = response.data.userId; // Assuming userId is returned in response
 				console.log('register: your user id from the backend is = ' + userId);
 				setUserId(userId); // Store userId in localStorage
+				setUserName(form.values.name);
 				//alert(response.data.message);
 				router.push('/dashboard');
 			} catch (error) {
@@ -71,6 +72,7 @@ export function AuthenticationImage() {
 				const userId = response.data.userId; // Assuming userId is returned in response
 				console.log('login: your user id from the backend is = ' + userId);
 				setUserId(userId); // Store userId in localStorage
+				setUserName(form.values.name);
 				//alert('Login successful! Welcome back!');
 				router.push('/dashboard');
 			} catch (error) {

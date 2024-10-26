@@ -4,11 +4,15 @@ import { GradientSegmentedControl } from './ClothingCategory/GradientSegmentedCo
 import axios from 'axios';
 import { getUserId } from '../../../utility/authUtility';
 import { useEffect, useState } from 'react';
+import { FloatingLabelInput } from './ClothingName/FloatingInputLabel';
 
 export default function AddNew() {
 	const [selectedCategory, setSelectedCategory] = useState('');
 	const [userId, setUserId] = useState<string | null>(null);
-	const [uploadedImages, setUploadedImages] = useState<string[]>([]); // State to hold uploaded images
+	const [uploadedImage, setUploadedImage] = useState<
+		string | ArrayBuffer | null
+	>(null);
+	const [imageName, setImageName] = useState('');
 
 	useEffect(() => {
 		const id = getUserId();
@@ -16,76 +20,81 @@ export default function AddNew() {
 	}, []);
 
 	const handleCategoryChange = (category) => {
-		console.log('Category selected:', category); // Log the selected category
+		console.log('Category selected:', category);
 		setSelectedCategory(category);
 	};
 
-	const handleUpload = async (files) => {
-		console.log('Handling uploads for files:', files); // Log the selected files
+	const handleImageUpload = (files) => {
+		const file = files[0];
+		if (file) {
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				setUploadedImage(reader.result);
+			};
+			reader.readAsDataURL(file);
+			uploadImage(file);
+		}
+	};
+
+	const uploadImage = async (file) => {
 		if (!userId) {
-			alert('User not logged in!');
+			console.error('No user ID available');
+			return;
+		}
+
+		if (!selectedCategory) {
+			console.error('No category selected');
 			return;
 		}
 
 		const formData = new FormData();
-		files.forEach((file) => {
-			formData.append('images', file); // Add images to the form data
-		});
+		formData.append('image', file);
+		formData.append('imageName', imageName);
 		formData.append('category', selectedCategory);
 		formData.append('userId', userId);
+
+		console.log('Uploading with details:', {
+			imageName,
+			category: selectedCategory,
+			userId,
+		});
 
 		try {
 			const response = await axios.post(
 				'http://localhost:5001/upload',
 				formData,
-				{
-					headers: {
-						'Content-Type': 'multipart/form-data',
-					},
-				},
 			);
-			console.log('--> Data sent: ', response.data);
-
-			// Assuming response.data.files contains the paths of uploaded images
-			const uploadedImagePaths = response.data.files.map(
-				(file) => file.imagePath,
-			);
-			setUploadedImages((prevImages) => [...prevImages, ...uploadedImagePaths]); // Update state with new images
-
-			alert(response.data.message);
+			console.log('Upload successful:', response.data);
 		} catch (error) {
-			console.error('Upload failed:', error.response.data); // Log the error response
-			alert('Upload failed, please try again.');
+			console.error('Error uploading the image', error);
 		}
 	};
 
 	return (
 		<Stack p={16}>
-			<Text size='xl' weight={500}>
+			<Text
+				size='xl'
+				style={{
+					alignSelf: 'center',
+					fontWeight: '700',
+					color: 'var(--mantine-color-pink-6)',
+				}}
+			>
 				Upload new clothes here!
 			</Text>
+			<Text
+				style={{
+					alignSelf: 'center',
+					fontWeight: '400',
+					fontStyle: 'italic',
+				}}
+			>
+				What is the type of clothing being uploaded?
+			</Text>
 			<GradientSegmentedControl onChange={handleCategoryChange} />
-			<DropzoneButton onUpload={handleUpload} />
-
-			{/* Display Uploaded Images */}
-			{uploadedImages.length > 0 && (
-				<Stack mt={24}>
-					<Text size='lg' weight={500}>
-						Uploaded Images
-					</Text>
-					<Stack spacing='md'>
-						{uploadedImages.map((image, index) => (
-							<Image
-								key={index}
-								src={image}
-								alt={`Uploaded Image ${index + 1}`}
-								style={{ maxWidth: '100%', height: 'auto' }}
-								withPlaceholder
-							/>
-						))}
-					</Stack>
-				</Stack>
-			)}
+			<FloatingLabelInput onChange={(name) => setImageName(name)} />
+			<DropzoneButton onUpload={handleImageUpload} />
+			{uploadedImage && <Image src={uploadedImage} alt='Uploaded Image' />}
 		</Stack>
 	);
 }
