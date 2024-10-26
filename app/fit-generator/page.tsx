@@ -1,4 +1,6 @@
+"use client";
 import { Button, Stack } from '@mantine/core';
+import { ContainedInputs } from './ContainedInputs/ContainedInputs';
 
 export default function FitGenerator() {
 	return (
@@ -7,7 +9,10 @@ export default function FitGenerator() {
 			<Button component='a' href='/dashboard' style={{ alignSelf: 'center' }}>
 				Back to Home
 			</Button>
-			
+			<ContainedInputs/>
+			<Button component='a' href='' style={{ alignSelf: 'center' }}>
+				Generate
+			</Button>
 		</Stack>
 	);
 }
