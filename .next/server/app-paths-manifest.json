@@ -1,7 +1,5 @@
 {
   "/dashboard/page": "app/dashboard/page.js",
-  "/ask-closet/page": "app/ask-closet/page.js",
   "/closet/page": "app/closet/page.js",
-  "/page": "app/page.js",
-  "/fit-generator/page": "app/fit-generator/page.js"
+  "/ask-closet/page": "app/ask-closet/page.js"
 }
