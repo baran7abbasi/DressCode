@@ -14,6 +14,12 @@ import {
 } from '@mantine/core';
 import classes from './AuthenticationImage.module.css';
 
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { setUserId, setUserName } from '../../utility/authUtility';
+
+
 export function AuthenticationImage() {
   const [type, toggle] = useToggle(['login', 'register']);
   const form = useForm({
@@ -33,20 +39,65 @@ export function AuthenticationImage() {
     },
   });
 
-  return (
-    <>
-      <form className={classes.wrapper} onSubmit={form.onSubmit(() => {})}>
-        <Paper className={classes.form} radius={0} p={30}>
-          <Stack>
-            <Title
-              order={2}
-              className={classes.title}
-              ta='center'
-              mt='md'
-              mb={50}
-            >
-              Welcome back to Dress Code!
-            </Title>
+		if (type === 'register') {
+			console.log('User is trying to register, is it working?');
+			try {
+				const response = await axios.post('http://localhost:5001/register', {
+					name: form.values.name,
+					email: form.values.email,
+					password: form.values.password,
+					terms: form.values.terms,
+				});
+				const userId = response.data.userId; // Assuming userId is returned in response
+				console.log('register: your user id from the backend is = ' + userId);
+				setUserId(userId); // Store userId in localStorage
+				setUserName(form.values.name);
+				//alert(response.data.message);
+				router.push('/dashboard');
+			} catch (error) {
+				alert('Registration failed!' + error);
+				console.log(error);
+			}
+		} else if (type === 'login') {
+			console.log('User is trying to log in, is it working?');
+			setPasswordError('');
+			try {
+				const response = await axios.post('http://localhost:5001/login', {
+					email: form.values.email,
+					password: form.values.password,
+				});
+				const userId = response.data.userId; // Assuming userId is returned in response
+				console.log('login: your user id from the backend is = ' + userId);
+				setUserId(userId); // Store userId in localStorage
+				setUserName(form.values.name);
+				//alert('Login successful! Welcome back!');
+				router.push('/dashboard');
+			} catch (error) {
+				if (error.response && error.response.status === 401) {
+					setPasswordError('Wrong password');
+				} else {
+					alert(
+						'Login failed: ' + "You don't have an account: error : " + error,
+					);
+				}
+			}
+		}
+	};
+
+	return (
+		<form className={classes.wrapper} onSubmit={form.onSubmit(() => {})}>
+			<Paper className={classes.form} radius={0} p={30}>
+				<Stack>
+					<Title
+						order={2}
+						className={classes.title}
+						ta='center'
+						mt='md'
+						mb={50}
+					>
+						Welcome back to Dress Code!
+					</Title>
+
 
             {type === 'register' && (
               <TextInput

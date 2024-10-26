@@ -9,44 +9,36 @@ import {
 	Title,
 	Card,
 } from '@mantine/core';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { getUserId } from '../../../utility/authUtility'; // Adjust the import path as needed
+
+interface ClothingItem {
+	_id: string;
+	name: string;
+	path: string;
+	category: string;
+	userId: string;
+}
 
 interface CardProps {
 	image: string;
 	name: string;
 }
-const data = [
-	{
-		image:
-			'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png',
-		name: 'Norway',
-	},
-	{
-		image:
-			'https://images.unsplash.com/photo-1579227114347-15d08fc37cae?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80',
-		name: 'Cash',
-	},
-	{
-		image:
-			'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-1.png',
-		name: 'desert',
-	},
-	{
-		image:
-			'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-2.png',
-		name: 'forset',
-	},
-	{
-		image:
-			'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-3.png',
-		name: 'lake',
-	},
-];
-
 function ClothingCard({ image, name }: CardProps) {
+	console.log('ClothingCard rendering with image path:', image);
+
 	return (
-		<Card shadow='sm' padding='xl' component='a' target='_blank'>
+		<Card shadow='sm' padding='xl' component='a'>
 			<Card.Section>
-				<Image src={image} h={160} />
+				<Image
+					// Update the src to use the correct backend URL and path
+					src={`http://localhost:5001/uploads/${image.split('/').pop()}`}
+					h={160}
+					fallbackSrc='https://placehold.co/600x400?text=Image+Not+Found'
+					onError={(e) => console.log('Image failed to load:', e)}
+					alt={name}
+				/>
 			</Card.Section>
 
 			<Text fw={500} size='lg' mt='md'>
@@ -57,11 +49,50 @@ function ClothingCard({ image, name }: CardProps) {
 }
 
 export default function Tops() {
-	// eslint-disable-next-line react/jsx-key
-	const slides = data.map((item) => <ClothingCard {...item} />);
-	return (
-		<Group>
-			{slides}
-		</Group>
-	);
+	const [clothingItems, setClothingItems] = useState<ClothingItem[]>([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState<string | null>(null);
+
+	useEffect(() => {
+		const fetchClothingItems = async () => {
+			try {
+				const userId = getUserId();
+				if (!userId) {
+					setError('User ID not found');
+					setLoading(false);
+					return;
+				}
+
+				const response = await axios.get(`http://localhost:5001/clothing`, {
+					params: {
+						category: 'TOPS',
+						userId: userId,
+					},
+				});
+
+				console.log('Response from server:', response.data);
+				setClothingItems(response.data);
+			} catch (err) {
+				setError('Error fetching clothing items');
+				console.error('Error fetching clothing items:', err);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchClothingItems();
+	}, []);
+
+	if (loading) return <Text>Loading...</Text>;
+	if (error) return <Text color='red'>{error}</Text>;
+	if (clothingItems.length === 0)
+		return <Text>No tops found. Try adding some!</Text>;
+
+	const slides = clothingItems.map((item) => {
+		console.log('Item path:', item.path);
+
+		return <ClothingCard key={item._id} image={item.path} name={item.name} />;
+	});
+
+	return <Group>{slides}</Group>;
 }
