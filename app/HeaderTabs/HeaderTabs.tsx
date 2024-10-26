@@ -4,8 +4,6 @@ import {
   Group,
   Menu,
   Burger,
-  Button,
-  rem,
   useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
