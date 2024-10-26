@@ -10,10 +10,10 @@
 	},
 	"dependencies": {
 		"@mantine/carousel": "^7.13.4",
-		"@mantine/core": "7.13.4",
+		"@mantine/core": "^7.13.4",
 		"@mantine/dropzone": "^7.13.4",
 		"@mantine/form": "^7.13.4",
-		"@mantine/hooks": "7.13.4",
+		"@mantine/hooks": "^7.13.4",
 		"@mantinex/mantine-logo": "^1.0.1",
 		"@nlxai/chat-core": "^0.1.51",
 		"@nlxai/chat-react": "^0.1.51",
@@ -26,7 +26,7 @@
 	},
 	"devDependencies": {
 		"@types/node": "20.14.8",
-		"@types/react": "18.3.3",
+		"@types/react": "^18.3.3",
 		"@types/react-dom": "18.3.0",
 		"eslint": "8.57.0",
 		"eslint-config-next": "14.2.4",

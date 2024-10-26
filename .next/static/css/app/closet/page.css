@@ -1,0 +1,144 @@
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./components/Closet-Navbar/NavbarSimpleColored.module.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************/
+.NavbarSimpleColored_navbar__wBJ4i {
+	height: calc(43.75rem * var(--mantine-scale));
+	width: calc(18.75rem * var(--mantine-scale));
+	padding: var(--mantine-spacing-md);
+	display: flex;
+	flex-direction: column;
+	background-color: var(--mantine-color-dark-5);
+}
+
+.NavbarSimpleColored_navbarMain__WiPgq {
+	flex: 1;
+}
+
+.NavbarSimpleColored_header__lgyJl {
+	padding-bottom: var(--mantine-spacing-md);
+	margin-bottom: calc(var(--mantine-spacing-md) * 1.5);
+	border-bottom: calc(0.0625rem * var(--mantine-scale)) solid var(--mantine-color-dark-7);
+}
+
+.NavbarSimpleColored_footer__UzTK8 {
+	padding-top: var(--mantine-spacing-md);
+	margin-top: var(--mantine-spacing-md);
+	border-top: calc(0.0625rem * var(--mantine-scale)) solid var(--mantine-color-dark-7);
+}
+
+.NavbarSimpleColored_version__ZGiVg {
+	background-color: var(--mantine-color-dark-7);
+	color: var(--mantine-color-pink-6);
+}
+
+.NavbarSimpleColored_link__JNeYl {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	font-size: var(--mantine-font-size-sm);
+	color: var(--mantine-color-pink-6);
+	padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm);
+	border-radius: var(--mantine-radius-sm);
+	font-weight: 500;
+}
+
+@media (hover: hover) {
+
+	.NavbarSimpleColored_link__JNeYl:hover {
+		background-color: var(--mantine-color-dark-7);
+		color: var(--mantine-color-pink-6);
+	}
+
+		.NavbarSimpleColored_link__JNeYl:hover .NavbarSimpleColored_linkIcon__Cmhbf {
+			color: var(--mantine-color-pink-6);
+		}
+}
+
+@media (hover: none) {
+
+	.NavbarSimpleColored_link__JNeYl:active {
+		background-color: var(--mantine-color-dark-7);
+		color: var(--mantine-color-pink-6);
+	}
+
+		.NavbarSimpleColored_link__JNeYl:active .NavbarSimpleColored_linkIcon__Cmhbf {
+			color: var(--mantine-color-pink-6);
+		}
+}
+
+.NavbarSimpleColored_link__JNeYl[data-active],
+		.NavbarSimpleColored_link__JNeYl[data-active]:hover {
+			box-shadow: var(--mantine-shadow-sm);
+			background-color: var(--mantine-color-pink-6);
+			color: var(--mantine-color-dark-5);
+		}
+
+.NavbarSimpleColored_link__JNeYl[data-active] .NavbarSimpleColored_linkIcon__Cmhbf, .NavbarSimpleColored_link__JNeYl[data-active]:hover .NavbarSimpleColored_linkIcon__Cmhbf {
+				color: var(--mantine-color-dark-5);
+			}
+
+.NavbarSimpleColored_linkIcon__Cmhbf {
+	color: var(--mantine-color-pink-1);
+	margin-right: var(--mantine-spacing-sm);
+	width: calc(1.5625rem * var(--mantine-scale));
+	height: calc(1.5625rem * var(--mantine-scale));
+}
+
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./components/Closet-Navbar/tops/RackCarousel/CardsCarousel.module.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************/
+.CardsCarousel_card__KLNeK {
+	height: calc(27.5rem * var(--mantine-scale));
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-start;
+	background-size: cover;
+	background-position: center;
+}
+
+.CardsCarousel_title__2Pl2g {
+	font-family:
+		Greycliff CF,
+		sans-serif;
+	font-weight: 900;
+	color: var(--mantine-color-white);
+	line-height: 1.2;
+	font-size: calc(2rem * var(--mantine-scale));
+	margin-top: var(--mantine-spacing-xs);
+}
+
+.CardsCarousel_category__kMhDj {
+	color: var(--mantine-color-white);
+	opacity: 0.7;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+/*!***************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./components/Upload/DropzoneButton.module.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************/
+.DropzoneButton_wrapper__pggGF {
+  position: relative;
+  margin-bottom: calc(1.875rem * var(--mantine-scale));
+}
+
+.DropzoneButton_dropzone__mz1mT {
+  border-width: calc(0.0625rem * var(--mantine-scale));
+  padding-bottom: calc(3.125rem * var(--mantine-scale));
+}
+
+.DropzoneButton_icon__5YV7B {
+  color: var(--mantine-color-gray-4);
+}
+
+[data-mantine-color-scheme='dark'] .DropzoneButton_icon__5YV7B {
+  color: var(--mantine-color-dark-3);
+}
+
+.DropzoneButton_control__x1xwO {
+  position: absolute;
+  width: calc(15.625rem * var(--mantine-scale));
+  left: calc(50% - calc(7.8125rem * var(--mantine-scale)));
+  bottom: calc(-1.25rem * var(--mantine-scale));
+}
