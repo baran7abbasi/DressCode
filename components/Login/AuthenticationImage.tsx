@@ -2,45 +2,42 @@
 import { useToggle, upperFirst } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
 import {
-	TextInput,
-	PasswordInput,
-	Title,
-	Paper,
-	Group,
-	Button,
-	Checkbox,
-	Anchor,
-	Stack,
-	Text,
+  TextInput,
+  PasswordInput,
+  Title,
+  Paper,
+  Group,
+  Button,
+  Checkbox,
+  Anchor,
+  Stack,
 } from '@mantine/core';
 import classes from './AuthenticationImage.module.css';
+
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { setUserId, setUserName } from '../../utility/authUtility';
 
-export function AuthenticationImage() {
-	const router = useRouter();
-	const [type, toggle] = useToggle(['login', 'register']);
-	const [passwordError, setPasswordError] = useState('');
-	const form = useForm({
-		initialValues: {
-			email: '',
-			name: '',
-			password: '',
-			terms: true,
-		},
-		validate: {
-			email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
-			password: (val) =>
-				val.length <= 6
-					? 'Password should include at least 6 characters'
-					: null,
-		},
-	});
 
-	const handleSubmit = async (event: any) => {
-		event.preventDefault();
+export function AuthenticationImage() {
+  const [type, toggle] = useToggle(['login', 'register']);
+  const form = useForm({
+    initialValues: {
+      email: '',
+      name: '',
+      password: '',
+      terms: true,
+    },
+
+    validate: {
+      email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
+      password: (val) =>
+        val.length <= 6
+          ? 'Password should include at least 6 characters'
+          : null,
+    },
+  });
 
 		if (type === 'register') {
 			console.log('User is trying to register, is it working?');
@@ -101,85 +98,82 @@ export function AuthenticationImage() {
 						Welcome back to Dress Code!
 					</Title>
 
-					{type === 'register' && (
-						<TextInput
-							label='Name'
-							placeholder='Your name'
-							value={form.values.name}
-							onChange={(event) =>
-								form.setFieldValue('name', event.currentTarget.value)
-							}
-							radius='md'
-						/>
-					)}
 
-					<TextInput
-						required
-						label='Email'
-						placeholder='hello@dresscode.com'
-						value={form.values.email}
-						onChange={(event) =>
-							form.setFieldValue('email', event.currentTarget.value)
-						}
-						error={form.errors.email && 'Invalid email'}
-						radius='md'
-					/>
+            {type === 'register' && (
+              <TextInput
+                label='Name'
+                placeholder='Your name'
+                value={form.values.name}
+                onChange={(event) =>
+                  form.setFieldValue('name', event.currentTarget.value)
+				}
+                radius='md'
+              />
+            )}
 
-					<PasswordInput
-						required
-						label='Password'
-						placeholder='Your password'
-						value={form.values.password}
-						onChange={(event) =>
-							form.setFieldValue('password', event.currentTarget.value)
-						}
-						error={
-							form.errors.password &&
-							'Password should include at least 6 characters'
-						}
-						radius='md'
-					/>
+            <TextInput
+              required
+              label='Email'
+              placeholder='hello@dresscode.com'
+              value={form.values.email}
+              onChange={(event) =>
+                form.setFieldValue('email', event.currentTarget.value)
+              }
+              error={form.errors.email && 'Invalid email'}
+              radius='md'
+            />
 
-					{passwordError && (
-						<Text color='red' size='sm'>
-							{passwordError}
-						</Text>
-					)}
+            <PasswordInput
+              required
+              label='Password'
+              placeholder='Your password'
+              value={form.values.password}
+              onChange={(event) =>
+                form.setFieldValue('password', event.currentTarget.value)
+              }
+              error={
+                form.errors.password &&
+                'Password should include at least 6 characters'
+              }
+              radius='md'
+            />
 
-					{type === 'register' && (
-						<Checkbox
-							label='I accept terms and conditions'
-							checked={form.values.terms}
-							onChange={(event) =>
-								form.setFieldValue('terms', event.currentTarget.checked)
-							}
-						/>
-					)}
-				</Stack>
-				<Group style={{ alignSelf: 'center' }}>
-					<Button
-						type='submit'
-						fullWidth
-						mt='xl'
-						size='md'
-						onClick={handleSubmit}
-					>
-						{upperFirst(type)}
-					</Button>
+            {type === 'register' && (
+              <Checkbox
+                label='I accept terms and conditions'
+                checked={form.values.terms}
+                onChange={(event) =>
+                  form.setFieldValue('terms', event.currentTarget.checked)
+                }
+              />
+            )}
+          </Stack>
+          <Group style={{ alignSelf: 'center' }}>
+            <Button type='submit' fullWidth mt='xl' size='md' color="pink">
+              {upperFirst(type)}
+            </Button>
 
-					<Anchor
-						component='button'
-						type='button'
-						c='dimmed'
-						onClick={() => toggle()}
-						size='s'
-					>
-						{type === 'register'
-							? 'Already have an account? Login'
-							: "Don't have an account? Register"}
-					</Anchor>
-				</Group>
-			</Paper>
-		</form>
-	);
+            <Anchor
+              component='button'
+              type='button'
+              c='dimmed'
+              onClick={() => toggle()}
+              size='s'
+            >
+              {type === 'register'
+                ? 'Already have an account? Login'
+                : "Don't have an account? Register"}
+            </Anchor>
+			<Button
+              component='a'
+              href='/dashboard'
+              style={{ alignSelf: 'right' }}
+            >
+              Get Started
+            </Button>
+          </Group>
+        </Paper>
+      </form>
+    </>
+  );
 }

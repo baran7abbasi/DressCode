@@ -1,4 +1,5 @@
 'use client';
+
 import { Select, TextInput, Button, Text, Code, Group } from '@mantine/core';
 import classes from './ContainedInput.module.css';
 import { useEffect, useState } from 'react';
@@ -200,8 +201,25 @@ export function ContainedInputs() {
 					>
 						Generate
 					</Button>
-				</div>
-			</div>
-		</div>
-	);
+				
+
+        </div>
+
+        {/* Display Generated Outfit */}
+        {/* {generatedOutfit && (
+          <Stack className={classes.generatedOutfit}>
+            <Text size='lg' weight={600}>
+              Generated Outfit:
+            </Text>
+            <Text>Season: {generatedOutfit.season}</Text>
+            <Text>Tops: {generatedOutfit.tops}</Text>
+            <Text>Bottoms: {generatedOutfit.bottoms}</Text>
+            <Text>Jackets: {generatedOutfit.jackets}</Text>
+            <Text>Shoes: {generatedOutfit.shoes}</Text>
+          </Stack>
+        )} */}
+      </div>
+    </div>
+  );
+
 }
