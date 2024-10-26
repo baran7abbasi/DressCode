@@ -20,13 +20,18 @@
     "/ask-closet/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
+      "static/css/app/ask-closet/page.css",
       "static/chunks/app/ask-closet/page.js"
     ],
-    "/closet/page": [
+    "/api/vision/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/closet/page.css",
-      "static/chunks/app/closet/page.js"
+      "static/chunks/app/api/vision/route.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }
