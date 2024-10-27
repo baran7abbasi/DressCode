@@ -20,7 +20,8 @@
 }
 
 .inputGroup {
-    background-color: var(--mantine-color-dark-5);
+    background-color: #f1f1f1;
+    border-radius: 8px;
     padding: 5px;
     border-color: var(--mantine-color-pink-6);
     &:focus {
@@ -69,6 +70,7 @@
     border: none;
     cursor: pointer;
     font-size: var(--mantine-font-size-sm);
+    
 }
 
 .inputGroup Button:hover {

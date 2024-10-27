@@ -3,13 +3,9 @@
 import { useEffect, useState } from 'react';
 import { useChat } from "@nlxai/chat-react"; // Ensure this library is installed
 import { TextInput, Button, Box, ScrollArea, FileButton, Group, Text } from '@mantine/core';
+import axios from 'axios';
 import styles from './ChatPage.module.css';
-
-// Define props interface
-interface ChatBubbleProps {
-    text: string;
-    isUser: boolean;
-}
+import { getUserId } from '../../../utility/authUtility';
 
 const ChatPage: React.FC = () => {
     const chat = useChat({
@@ -36,6 +32,63 @@ const ChatPage: React.FC = () => {
             // Read the image file as a data URL
             reader.readAsDataURL(file);
         }
+    };
+    const fetchClothingItems = async () => {
+        const userId = getUserId(); // Replace with logic to retrieve actual user ID
+        if (!userId) {
+            chat.conversationHandler.sendText("User ID not found. Please log in.");
+            return;
+        }
+        try {
+            const response = await axios.get(`http://localhost:5001/clothing`, {
+                params: {
+                    userId: userId, // Ensure the userId is being sent
+                },
+            });
+            const items = response.data.map(item => item.name).join(', '); // Adjust based on your data structure
+            chat.conversationHandler.sendText(`You own the following items: ${items}`);
+        } catch (error) {
+            console.error('Error fetching clothing items:', error);
+            chat.conversationHandler.sendText("There was an error fetching your clothing items.");
+        }
+    };
+    const checkForClothingItem = async (message: string) => {
+        // Basic keyword detection for simplicity
+        const keywordMatch = /do i have|own/i.test(message);
+        
+        if (keywordMatch) {
+            const userId = getUserId; // Replace with logic to retrieve actual user ID
+            const itemName = message.split(" ").pop(); // Get last word as item name for simplicity
+            
+            try {
+                const response = await axios.get(`http://localhost:5001/clothing`, {
+                    params: { userId },
+                });
+
+                const items = response.data;
+                const foundItem = items.find((item: any) => item.name.toLowerCase() === itemName?.toLowerCase());
+
+                // Generate bot response based on item existence
+                const botResponse = foundItem
+                    ? `Yes, you own a ${foundItem.name} in your wardrobe!`
+                    : `It looks like you don't own a ${itemName} in your wardrobe.`;
+
+                // Send the bot response as a user message
+                chat.conversationHandler.sendText(botResponse);
+            } catch (error) {
+                console.error("Error checking clothing item:", error);
+                chat.conversationHandler.sendText("Sorry, there was an error checking your closet.");
+            }
+        }
+    };
+
+    const handleSend = () => {
+        const userInput = chat.inputValue;
+        chat.conversationHandler.sendText(userInput); // Send user message
+        chat.setInputValue(''); // Clear input field
+
+        // Check for clothing item in MongoDB
+        checkForClothingItem(userInput); 
     };
 
     return (
@@ -75,17 +128,11 @@ const ChatPage: React.FC = () => {
                         input: {
                             flex: 1,
                             padding: "5px",
-                            minWidth: "1000px"
+                            minWidth: "1200px",
+                            width: "auto"
                         },
                     }}
                 />
-                <FileButton
-                    accept="image/*"
-                    onChange={handleFileChange}
-                    multiple={false} // Ensure that only one file can be selected
-                >
-                    {(props) => <Button {...props}>Upload Image</Button>}
-                </FileButton>
                 <Button
                     onClick={() => {
                         chat.conversationHandler.sendText(chat.inputValue);

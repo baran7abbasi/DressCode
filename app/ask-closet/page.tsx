@@ -7,9 +7,6 @@ export default function AskCloset() {
     <Stack p={16}>
 		<HeaderMegaMenu/>
 		<ChatPage/>
-		<Button component='a' href='/dashboard' style={{ alignSelf: 'center' }}>
-			Back to Home
-		</Button>
     </Stack>
   );
 }
