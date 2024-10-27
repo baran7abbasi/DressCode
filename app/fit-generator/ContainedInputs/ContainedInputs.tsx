@@ -289,6 +289,20 @@ export function ContainedInputs() {
 						value={occasion}
 						onChange={(e) => setOccasion(e.currentTarget.value)}
 						classNames={classes}
+						styles={(theme) => ({
+							item: {
+								color: 'white', // White text for items in dropdown
+								'&[data-hovered]': {
+								  backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
+								},
+								'&[data-selected]': {
+								  color: 'white', // White text for selected item
+								},
+							  },
+							  input: {
+								color: 'white', // White text for selected item in input field
+							  },
+							})}
 					/>
 
 					<TextInput
@@ -297,6 +311,20 @@ export function ContainedInputs() {
 						value={weather}
 						onChange={(e) => setWeather(e.currentTarget.value)}
 						classNames={classes}
+						styles={(theme) => ({
+							item: {
+								color: 'white', // White text for items in dropdown
+								'&[data-hovered]': {
+								  backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
+								},
+								'&[data-selected]': {
+								  color: 'white', // White text for selected item
+								},
+							  },
+							  input: {
+								color: 'white', // White text for selected item in input field
+							  },
+							})}
 					/>
 
 					<Select
