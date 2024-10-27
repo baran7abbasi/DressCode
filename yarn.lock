@@ -291,6 +291,19 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-2.0.3.tgz"
   integrity sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==
 
+
+"@img/sharp-darwin-arm64@0.33.5":
+  version "0.33.5"
+  resolved "https://registry.npmjs.org/@img/sharp-darwin-arm64/-/sharp-darwin-arm64-0.33.5.tgz"
+  integrity sha512-UT4p+iz/2H4twwAoLCqfA9UH5pI6DggwKEGuaPy7nCVQ8ZsiY5PIcrRvD1DzuY3qYL07NtIQcWnBSY/heikIFQ==
+  optionalDependencies:
+    "@img/sharp-libvips-darwin-arm64" "1.0.4"
+
+"@img/sharp-libvips-darwin-arm64@1.0.4":
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/@img/sharp-libvips-darwin-arm64/-/sharp-libvips-darwin-arm64-1.0.4.tgz"
+  integrity sha512-XblONe153h0O2zuFfTAbQYAX2JhYmDHeWikp1LM9Hul9gVPjFY427k6dFEcOL72O01QxQsWi761svJ/ev9xEDg==
+
 "@img/sharp-darwin-x64@0.33.5":
   version "0.33.5"
   resolved "https://registry.npmjs.org/@img/sharp-darwin-x64/-/sharp-darwin-x64-0.33.5.tgz"
@@ -302,6 +315,7 @@
   version "1.0.4"
   resolved "https://registry.npmjs.org/@img/sharp-libvips-darwin-x64/-/sharp-libvips-darwin-x64-1.0.4.tgz"
   integrity sha512-xnGR8YuZYfJGmWPvmlunFaWJsb9T/AO2ykoP3Fz/0X5XV2aoYBPkX6xqCQvUTKKiLddarLaxpzNe+b1hjeWHAQ==
+
 
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
@@ -423,40 +437,47 @@
   dependencies:
     glob "10.3.10"
 
+
+"@next/swc-darwin-arm64@15.0.1":
+  version "15.0.1"
+  resolved "https://registry.npmjs.org/@next/swc-darwin-arm64/-/swc-darwin-arm64-15.0.1.tgz"
+  integrity sha512-C9k/Xv4sxkQRTA37Z6MzNq3Yb1BJMmSqjmwowoWEpbXTkAdfOwnoKOpAb71ItSzoA26yUTIo6ZhN8rKGu4ExQw==
+
 "@next/swc-darwin-x64@15.0.1":
   version "15.0.1"
   resolved "https://registry.npmjs.org/@next/swc-darwin-x64/-/swc-darwin-x64-15.0.1.tgz"
   integrity sha512-uHl13HXOuq1G7ovWFxCACDJHTSDVbn/sbLv8V1p+7KIvTrYQ5HNoSmKBdYeEKRRCbEmd+OohOgg9YOp8Ux3MBg==
 
-"@nlxai/chat-core@^0.1.51":
-  version "0.1.51"
-  resolved "https://registry.npmjs.org/@nlxai/chat-core/-/chat-core-0.1.51.tgz"
-  integrity sha512-N+77PUaXkq2EB4RAp8bYQvsGafMRZ5tPgj85PE0x3r5qpMdy2WqfNC1yYi2FlP4jyyypND/MkOvUI4RC3rF26g==
+
+"@nlxai/chat-core@^0.1.51", "@nlxai/chat-core@^0.1.53":
+  version "0.1.53"
+  resolved "https://registry.npmjs.org/@nlxai/chat-core/-/chat-core-0.1.53.tgz"
+  integrity sha512-mJyZhb01i0Lfd9cMR6ZTk3GE9B7lA9xjyUql9+qg6eFETxgXSV+qGN3wxUpjDJdFocWqOkkXd/RZmaTFPok/og==
   dependencies:
     isomorphic-fetch "^3.0.0"
     ramda "^0.29.1"
     reconnecting-websocket "^4.4.0"
     uuid "^9.0.1"
 
-"@nlxai/chat-react@^0.1.51":
-  version "0.1.51"
-  resolved "https://registry.npmjs.org/@nlxai/chat-react/-/chat-react-0.1.51.tgz"
-  integrity sha512-whIuWnRJMrgr/8rp1nqM0ASHVxRsceHnWUMssNhQ94vsHowE6a0cRccwDJj7XuXaxw3iiR+qaLkVBInOdzn09A==
+"@nlxai/chat-react@^0.1.51", "@nlxai/chat-react@^0.1.53":
+  version "0.1.53"
+  resolved "https://registry.npmjs.org/@nlxai/chat-react/-/chat-react-0.1.53.tgz"
+  integrity sha512-wJP8B0gf6G2tLVB+P/nwFMBStKY1ZKJKVAF/yVZQFJh2Cts2vUx5JiT/jlsCMQa6LchHKQ77P9zSn9WBpA6uhg==
   dependencies:
-    "@nlxai/chat-core" "^0.1.51"
+    "@nlxai/chat-core" "^0.1.53"
     ramda "^0.29.1"
 
-"@nlxai/chat-widget@^0.1.51":
-  version "0.1.51"
-  resolved "https://registry.npmjs.org/@nlxai/chat-widget/-/chat-widget-0.1.51.tgz"
-  integrity sha512-TOD/PFSU4T9p51xnCO4O9sZuZDBwTW72fEDYtYSKWL5+aNYpuZMqh0bM9aw/erLwR2iTx+b6xJGLovX2BxAO6w==
+"@nlxai/chat-widget@^0.1.53":
+  version "0.1.53"
+  resolved "https://registry.npmjs.org/@nlxai/chat-widget/-/chat-widget-0.1.53.tgz"
+  integrity sha512-Wxn7e6ahMmdK/PVSdCOv6JAb52qFPctqXAhhCGffHd0kkqepG88olnVxyNvHxLxAYVWEkA40Am6zLpM4prJH1g==
   dependencies:
     "@emotion/cache" "^11.1.3"
     "@emotion/core" "^11.0.0"
     "@emotion/react" "^11.1.4"
     "@emotion/styled" "^11.0.0"
-    "@nlxai/chat-core" "^0.1.51"
-    "@nlxai/chat-react" "^0.1.51"
+    "@nlxai/chat-core" "^0.1.53"
+    "@nlxai/chat-react" "^0.1.53"
     marked "^9.1.6"
     promise-polyfill "^8.1.3"
     ramda "^0.29.1"
