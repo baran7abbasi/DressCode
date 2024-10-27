@@ -94,7 +94,7 @@ export function NavbarSimpleColored() {
 					{links}
 				</div>
 			</nav>
-			<div style={{ padding: '20px', flexGrow: 1, height: '100vh' }}>
+			<div style={{ padding: '20px', flexGrow: 1 }}>
 				{pageContent[active]}
 			</div>
 		</div>
