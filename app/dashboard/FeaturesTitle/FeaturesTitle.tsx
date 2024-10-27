@@ -10,14 +10,14 @@ const features = [
     {
       icon: IconHanger,
       title: 'Generate an outfit',
-      description: 'All packages are published under MIT license, you can use Mantine in any project',
+      description: 'Enter in any piece or many pieces of an outfit, and we will find the best combination for you.',
       buttonText: 'Generate',
       href: '/fit-generator',
     },
     {
       icon: IconBrandMessenger,
       title: 'Ask Your Closet',
-      description: 'Build type safe applications, all components and hooks export types',
+      description: 'Ask your closet what it has, what it needs, and what it wants.',
       buttonText: 'Ask',
       href: '/ask-closet',
     },
@@ -25,7 +25,7 @@ const features = [
       icon: IconEyeFilled,
       title: 'See Your Closet',
       description:
-        'With new :focus-visible selector focus ring will appear only when user navigates with keyboard',
+        'Visualize your closet with your uploaded images and personal labels.',
       buttonText: 'See',
       href: '/closet',
     },
