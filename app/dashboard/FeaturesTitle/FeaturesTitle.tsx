@@ -63,8 +63,8 @@ const features = [
               Welcome to Your Closet
             </Title>
             <Text c="dimmed">
-              Build fully functional accessible web applications faster than ever – Mantine includes
-              more than 120 customizable components and hooks to cover you in any situation
+              Start by generating an outfit, ask your closet questions, or add to your 
+              closet by uploading images.
             </Text>
           </Grid.Col>
           <Grid.Col span={{ md: 7 }}>

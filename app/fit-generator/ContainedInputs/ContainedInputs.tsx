@@ -35,8 +35,21 @@ export function ContainedInputs() {
 	const [selectedShoes, setSelectedShoes] = useState<string>(''); // Default to empty string
 	const [selectedJacket, setSelectedJacket] = useState<string>(''); // Default to empty string
 	const [selectedAccessory, setSelectedAccessory] = useState<string>('');
+
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+
+	
+	const [occasion, setOccasion] = useState('');
+	const [weather, setWeather] = useState('');
+	const [top, sendTop] = useState('');
+	const [bottom, sendBottom] = useState('');
+	const [jacket, sendJacket] = useState('');
+	const [shoe, sendShoes] = useState('');
+	const [accessory, sendAccessory] = useState('');
+	const [generateOutfit, setGenerateOutfit] = useState('');
+	const [outfitted, setOutfit] = useState('');
+
 
 	useEffect(() => {
 		const fetchClothingItems = async () => {
@@ -132,6 +145,29 @@ export function ContainedInputs() {
 
 	const handleSelect = async (category: string, itemName: string | null) => {
 		const userId = getUserId();
+		if (!itemName) {
+			console.warn("Item name is null");
+			return; // Exit early if itemName is null
+		}
+		switch (category) {
+			case 'top':
+				sendTop(itemName)
+				break;
+			case 'bottom':
+				sendBottom(itemName)
+				break;
+			case 'shoes':
+				sendShoes(itemName)
+				break;
+			case 'jacket':
+				sendJacket(itemName)
+				break;
+			case 'accessory':
+				sendAccessory(itemName)
+				break;
+			default:
+				console.warn(`Unhandled category: ${category}`);
+		}
 		console.log('this is the category: ' + category);
 		console.log('and this is the item name: ' + itemName);
 
@@ -147,7 +183,7 @@ export function ContainedInputs() {
 			const item = response.data[0];
 			const itemPath = item?.path || '';
 
-			console.log('this is teh response we get back: ' + itemPath);
+			console.log('this is the response we get back: ' + itemPath);
 
 			// Set the path based on category
 			switch (category) {
@@ -176,7 +212,54 @@ export function ContainedInputs() {
 	};
 
 	if (loading) return <Text>Loading...</Text>;
-	if (error) return <Text color='red'>{error}</Text>;
+	if (error) return <Text c='red'>{error}</Text>;
+
+	const handleGenerate = async () => {
+		setLoading(true);
+		setError(null);
+
+		if (top === null) {
+			sendTop(tops.toString())
+		}
+	
+		if (bottom === null) {
+			sendBottom(bottoms.toString())
+		}
+	
+		if (jacket === null) {
+			sendJacket(jackets.toString())
+		}
+	
+		if (shoe === null) {
+			sendShoes(shoes.toString())
+		}
+	
+		if (accessory === null) {
+			sendAccessory(accessories.toString())
+		}
+		
+		try {
+		  const response = await axios.post('http://localhost:5000/chat', {
+			occasion: occasion,
+			weather: weather,
+			top: tops,
+			bottom: bottoms,
+			shoes: shoes,
+			jacket: jackets,
+			accessory: accessories
+		  });
+	
+		  setGenerateOutfit(response.data.response);
+		} catch (error: any) {
+		  const errorMessage = error.response?.data?.error || error.message;
+		  setError(errorMessage);
+		  console.error('Error generating outfit:', errorMessage);
+		} finally {
+		  setLoading(false);
+		}
+
+		console.log(generateOutfit)
+	  };
 
 	return (
 		<Flex>
@@ -200,12 +283,16 @@ export function ContainedInputs() {
 					<TextInput
 						label='Occasion'
 						placeholder='Fancy Dinner, College Class, etc.'
+						value={occasion}
+						onChange={(e) => setOccasion(e.currentTarget.value)}
 						classNames={classes}
 					/>
 
 					<TextInput
 						label='Weather Outside'
 						placeholder='75 degrees, super chilly, windy, etc'
+						value={weather}
+						onChange={(e) => setWeather(e.currentTarget.value)}
 						classNames={classes}
 					/>
 
@@ -258,7 +345,7 @@ export function ContainedInputs() {
 					<div>
 						<Button
 							component='a'
-							href=''
+							onClick={handleGenerate}
 							style={{
 								alignSelf: 'center',
 								backgroundColor: 'var(--mantine-color-pink-5)', // Corrected style syntax
@@ -268,10 +355,14 @@ export function ContainedInputs() {
 							Generate
 						</Button>
 					</div>
+					<div>
+						<Text className={classes.header}>Your Customized Outfit!</Text>
+						<Text className={classes.version} style={{color: "white"}}>{generateOutfit}</Text>
+					</div>
 				</div>
 			</div>
 			<div className={classes.outfitGeneration}>
-				<SimpleGrid cols={2}>
+				<SimpleGrid cols={2} mb='20px' mr='20px'>
 					<div>
 						<Image
 							src={`http://localhost:5001/uploads/${selectedTop}`}
