@@ -1,4 +1,5 @@
 'use client';
+'use client';
 import {
 	HoverCard,
 	Group,
@@ -90,12 +91,6 @@ export function HeaderMegaMenu() {
 						</HoverCard>
 					</Group>
 
-					{/* <Group h='70%' visibleFrom='sm'>
-						<a href='/' className={classes.link}>
-							Log in
-						</a>
-					</Group> */}
-
 					<Burger
 						opened={drawerOpened}
 						onClick={toggleDrawer}
@@ -121,12 +116,12 @@ export function HeaderMegaMenu() {
 										<Text fw={500} size='sm' lh={1} mr={3}>
 											{user}
 											<a href='/' className={classes.link}>
-												Log in
+												Log Out
 											</a>
 										</Text>
 									) : (
 										<a href='/' className={classes.link}>
-											Log in
+											Log Out
 										</a>
 									)}
 								</Group>
@@ -176,3 +171,4 @@ export function HeaderMegaMenu() {
 		</Box>
 	);
 }
+
