@@ -38,6 +38,10 @@ export function ContainedInputs() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
+	
+	const [occasion, setOccasion] = useState('');
+	const [weather, setWeather] = useState('');
+
 	useEffect(() => {
 		const fetchClothingItems = async () => {
 			try {
@@ -176,7 +180,32 @@ export function ContainedInputs() {
 	};
 
 	if (loading) return <Text>Loading...</Text>;
-	if (error) return <Text color='red'>{error}</Text>;
+	if (error) return <Text c='red'>{error}</Text>;
+
+	const handleGenerate = async () => {
+		setLoading(true);
+		setError(null);
+		
+		try {
+		  const response = await axios.post('http://localhost:5000/chat', {
+			occasion: occasion,
+			weather: weather,
+			top: selectedTop,
+			bottom: selectedBottom,
+			shoes: selectedShoes,
+			jacket: selectedJacket,
+			accessory: selectedAccessory
+		  });
+	
+		  setGeneratedOutfit(response.data.response);
+		} catch (error: any) {
+		  const errorMessage = error.response?.data?.error || error.message;
+		  setError(errorMessage);
+		  console.error('Error generating outfit:', errorMessage);
+		} finally {
+		  setLoading(false);
+		}
+	  };
 
 	return (
 		<Flex>
@@ -200,12 +229,16 @@ export function ContainedInputs() {
 					<TextInput
 						label='Occasion'
 						placeholder='Fancy Dinner, College Class, etc.'
+						value={occasion}
+						onChange={(e) => setOccasion(e.currentTarget.value)}
 						classNames={classes}
 					/>
 
 					<TextInput
 						label='Weather Outside'
 						placeholder='75 degrees, super chilly, windy, etc'
+						value={weather}
+						onChange={(e) => setWeather(e.currentTarget.value)}
 						classNames={classes}
 					/>
 
@@ -258,7 +291,7 @@ export function ContainedInputs() {
 					<div>
 						<Button
 							component='a'
-							href=''
+							onClick={handleGenerate}
 							style={{
 								alignSelf: 'center',
 								backgroundColor: 'var(--mantine-color-pink-5)', // Corrected style syntax
@@ -266,6 +299,7 @@ export function ContainedInputs() {
 							}}
 						>
 							Generate
+							<Text>{generatedOutfit}</Text>
 						</Button>
 					</div>
 				</div>
