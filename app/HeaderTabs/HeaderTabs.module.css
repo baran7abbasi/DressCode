@@ -1,16 +1,20 @@
+.body {
+    background-color: '#000';
+    color: white;
+}
+
 .header {
-	padding-top: rem(20px); /* Reduced padding */
+    padding-top: rem(20px); /* Reduced padding */
     padding-bottom: rem(10px); /* Reduced padding */
-	background-color: white;
-	border-bottom: rem(1px) solid
-		light-dark(var(--mantine-color-gray-2), transparent);
-	margin-bottom: rem(-1000px); /*Reduced bottom margin*/
-	margin-top: rem(-20px); /* Reduced bottom margin */
-	width: 100%; /* Ensure full width */
+    border-bottom: rem(1px) solid light-dark(var(--mantine-color-gray-2), transparent);
+    margin-bottom: rem(-20px); /* Reduced bottom margin */
+    margin-top: rem(-20px); /* Reduced bottom margin */
+    width: 100%; /* Ensure full width */
+    background-color: '#000';
+    color: white;
 }
 
 .mainSection {
-	/* padding-bottom: 0; Reduce padding */
-	display: flex;
-	margin-left: 0rem;
+  padding-bottom: var(--mantine-spacing-xs); /* Reduce padding */
+  margin-left: 0rem;
 }
