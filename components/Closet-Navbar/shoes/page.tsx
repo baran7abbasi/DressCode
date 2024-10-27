@@ -29,7 +29,7 @@ function ClothingCard({ image, name }: CardProps) {
 	console.log('ClothingCard rendering with image path:', image);
 
 	return (
-		<Card shadow='sm' padding='xl' component='a'>
+		<Card shadow='sm' padding='xl' component='a' style={{ backgroundColor: 'var(--mantine-color-dark-5)', color: 'white' }}>
 			<Card.Section>
 				<Image
 					// Update the src to use the correct backend URL and path
