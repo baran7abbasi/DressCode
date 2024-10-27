@@ -6,7 +6,9 @@ export default function Dashboard() {
 	return (
 		<Stack style={{ backgroundColor: '#000', minHeight: '100vh', color: 'white' }}>
 			<HeaderMegaMenu />
-			<FeaturesTitle />
+			{/*<FeaturesTitle />*/}
 		</Stack>
 	);
 }
+
+
