@@ -262,8 +262,11 @@ export function ContainedInputs() {
 	  };
 
 	return (
-		<Flex>
-			<div className={classes.container}>
+		// CHANGED
+		<Flex style={{backgroundColor:"black", marginTop:"-30px", paddingTop:"30px"}}>
+			{/*  */}
+
+			<div className={classes.container} >
 				<div className={classes.inputGroup}>
 					<Group className={classes.header} justify='space-between'>
 						<Text
@@ -304,6 +307,23 @@ export function ContainedInputs() {
 						placeholder='Pick a top or leave empty for us to choose for you'
 						classNames={classes}
 						onChange={(value) => handleSelect('top', value)}
+						styles={(theme) => ({
+							dropdown: {
+							  backgroundColor: 'white',
+							},
+							item: {
+							  color: 'white', // White text for items in dropdown
+							  '&[data-hovered]': {
+								backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
+							  },
+							  '&[data-selected]': {
+								color: 'white', // White text for selected item
+							  },
+							},
+							input: {
+							  color: 'white', // White text for selected item in input field
+							},
+						  })}
 					/>
 					<Select
 						data={bottoms}
@@ -313,6 +333,23 @@ export function ContainedInputs() {
 						placeholder='Pick a bottom or leave empty for us to choose for you'
 						classNames={classes}
 						onChange={(value) => handleSelect('bottom', value)}
+						styles={(theme) => ({
+							dropdown: {
+							  backgroundColor: 'white',
+							},
+							item: {
+							  color: 'white', // White text for items in dropdown
+							  '&[data-hovered]': {
+								backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
+							  },
+							  '&[data-selected]': {
+								color: 'white', // White text for selected item
+							  },
+							},
+							input: {
+							  color: 'white', // White text for selected item in input field
+							},
+						  })}
 					/>
 					<Select
 						data={shoes}
@@ -322,6 +359,23 @@ export function ContainedInputs() {
 						placeholder='Pick a pair of shoes or leave empty for us to choose for you'
 						classNames={classes}
 						onChange={(value) => handleSelect('shoes', value)}
+						styles={(theme) => ({
+							dropdown: {
+							  backgroundColor: 'white',
+							},
+							item: {
+							  color: 'white', // White text for items in dropdown
+							  '&[data-hovered]': {
+								backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
+							  },
+							  '&[data-selected]': {
+								color: 'white', // White text for selected item
+							  },
+							},
+							input: {
+							  color: 'white', // White text for selected item in input field
+							},
+						  })}
 					/>
 					<Select
 						data={jackets}
@@ -331,6 +385,23 @@ export function ContainedInputs() {
 						placeholder='Pick a jacket/sweater or leave empty for us to choose for you'
 						classNames={classes}
 						onChange={(value) => handleSelect('jacket', value)}
+						styles={(theme) => ({
+							dropdown: {
+							  backgroundColor: 'white',
+							},
+							item: {
+							  color: 'white', // White text for items in dropdown
+							  '&[data-hovered]': {
+								backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
+							  },
+							  '&[data-selected]': {
+								color: 'white', // White text for selected item
+							  },
+							},
+							input: {
+							  color: 'white', // White text for selected item in input field
+							},
+						  })}
 					/>
 					<Select
 						data={accessories}
@@ -340,6 +411,23 @@ export function ContainedInputs() {
 						placeholder='Pick an accessory or leave empty for us to choose for you'
 						classNames={classes}
 						onChange={(value) => handleSelect('accessory', value)}
+						styles={(theme) => ({
+							dropdown: {
+							  backgroundColor: 'white',
+							},
+							item: {
+							  color: 'white', // White text for items in dropdown
+							  '&[data-hovered]': {
+								backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
+							  },
+							  '&[data-selected]': {
+								color: 'white', // White text for selected item
+							  },
+							},
+							input: {
+							  color: 'white', // White text for selected item in input field
+							},
+						  })}
 					/>
 
 					<div>
@@ -349,15 +437,12 @@ export function ContainedInputs() {
 							style={{
 								alignSelf: 'center',
 								backgroundColor: 'var(--mantine-color-pink-5)', // Corrected style syntax
-								margin: '20px 0 20px 0px',
+								margin: '5px 0 20px 0px',
 							}}
 						>
 							Generate
+							{/* <Text>{generatedOutfit}</Text> */}
 						</Button>
-					</div>
-					<div>
-						<Text className={classes.header}>Your Customized Outfit!</Text>
-						<Text className={classes.version} style={{color: "white"}}>{generateOutfit}</Text>
 					</div>
 				</div>
 			</div>
