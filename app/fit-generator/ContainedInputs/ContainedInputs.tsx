@@ -1,6 +1,15 @@
 'use client';
 
-import { Select, TextInput, Button, Text, Code, Group } from '@mantine/core';
+import {
+	Select,
+	TextInput,
+	Button,
+	Text,
+	Code,
+	Group,
+	Flex,
+	SimpleGrid,
+} from '@mantine/core';
 import classes from './ContainedInput.module.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -119,94 +128,93 @@ export function ContainedInputs() {
 	if (error) return <Text color='red'>{error}</Text>;
 
 	return (
-		<div className={classes.container}>
-			<div className={classes.inputGroup}>
-				<Group className={classes.header} justify='space-between'>
-					<Text
-						component='span'
-						variant='gradient'
-						gradient={{ from: 'pink', to: 'white' }}
-						inherit
-						style={{ fontWeight: 1000, fontSize: '2rem' }}
-					>
-						Outfit Generator
-					</Text>
+		<Flex>
+			<div className={classes.container}>
+				<div className={classes.inputGroup}>
+					<Group className={classes.header} justify='space-between'>
+						<Text
+							component='span'
+							variant='gradient'
+							gradient={{ from: 'pink', to: 'white' }}
+							inherit
+							style={{ fontWeight: 1000, fontSize: '2rem' }}
+						>
+							Outfit Generator
+						</Text>
 
-					<Code fw={700} className={classes.version}>
-						v0.1.7
-					</Code>
-				</Group>
-				<TextInput
-					label='Occasion'
-					placeholder='Fancy Dinner, College Class, etc.'
-					classNames={classes}
-				/>
+						<Code fw={700} className={classes.version}>
+							v0.1.7
+						</Code>
+					</Group>
+					<TextInput
+						label='Occasion'
+						placeholder='Fancy Dinner, College Class, etc.'
+						classNames={classes}
+					/>
 
-				<TextInput
-					label='Weather Outside'
-					placeholder='75 degrees, super chilly, windy, etc'
-					classNames={classes}
-				/>
+					<TextInput
+						label='Weather Outside'
+						placeholder='75 degrees, super chilly, windy, etc'
+						classNames={classes}
+					/>
 
-				<Select
-					mt='md'
-					comboboxProps={{ withinPortal: true }}
-					data={tops}
-					placeholder='Pick a top or leave empty for us to choose for you'
-					label='Tops'
-					classNames={classes}
-				/>
-				<Select
-					mt='md'
-					comboboxProps={{ withinPortal: true }}
-					data={bottoms}
-					placeholder='Pick a bottom or leave empty for us to choose for you'
-					label='Bottoms'
-					classNames={classes}
-				/>
-				<Select
-					mt='md'
-					comboboxProps={{ withinPortal: true }}
-					data={shoes}
-					placeholder='Pick shoes or leave empty for us to choose for you'
-					label='Shoes'
-					classNames={classes}
-				/>
-				<Select
-					mt='md'
-					comboboxProps={{ withinPortal: true }}
-					data={jackets}
-					placeholder='Pick a jacket/sweater or leave empty for us to choose for you'
-					label='Jackets/Sweaters'
-					classNames={classes}
-				/>
-				<Select
-					mt='md'
-					comboboxProps={{ withinPortal: true }}
-					data={accessories}
-					placeholder='Pick an accessory or leave empty for us to choose for you'
-					label='Accessories'
-					classNames={classes}
-				/>
+					<Select
+						mt='md'
+						comboboxProps={{ withinPortal: true }}
+						data={tops}
+						placeholder='Pick a top or leave empty for us to choose for you'
+						label='Tops'
+						classNames={classes}
+					/>
+					<Select
+						mt='md'
+						comboboxProps={{ withinPortal: true }}
+						data={bottoms}
+						placeholder='Pick a bottom or leave empty for us to choose for you'
+						label='Bottoms'
+						classNames={classes}
+					/>
+					<Select
+						mt='md'
+						comboboxProps={{ withinPortal: true }}
+						data={shoes}
+						placeholder='Pick shoes or leave empty for us to choose for you'
+						label='Shoes'
+						classNames={classes}
+					/>
+					<Select
+						mt='md'
+						comboboxProps={{ withinPortal: true }}
+						data={jackets}
+						placeholder='Pick a jacket/sweater or leave empty for us to choose for you'
+						label='Jackets/Sweaters'
+						classNames={classes}
+					/>
+					<Select
+						mt='md'
+						comboboxProps={{ withinPortal: true }}
+						data={accessories}
+						placeholder='Pick an accessory or leave empty for us to choose for you'
+						label='Accessories'
+						classNames={classes}
+					/>
 
-				<div>
-					<Button
-						component='a'
-						href=''
-						style={{
-							alignSelf: 'center',
-							backgroundColor: 'var(--mantine-color-pink-5)', // Corrected style syntax
-							margin: '20px 0 20px 0px',
-						}}
-					>
-						Generate
-					</Button>
-				
+					<div>
+						<Button
+							component='a'
+							href=''
+							style={{
+								alignSelf: 'center',
+								backgroundColor: 'var(--mantine-color-pink-5)', // Corrected style syntax
+								margin: '20px 0 20px 0px',
+							}}
+						>
+							Generate
+						</Button>
+					</div>
 
-        </div>
-
-        {/* Display Generated Outfit */}
-        {/* {generatedOutfit && (
+					{/* Display Generated Outfit */}
+					{/* {generatedOutfit && (
           <Stack className={classes.generatedOutfit}>
             <Text size='lg' weight={600}>
               Generated Outfit:
@@ -218,8 +226,35 @@ export function ContainedInputs() {
             <Text>Shoes: {generatedOutfit.shoes}</Text>
           </Stack>
         )} */}
-      </div>
-    </div>
-  );
-
+				</div>
+			</div>
+			<div className={classes.outfitGeneration}>
+				{/* <Image
+					// Update the src to use the correct backend URL and path
+					src={`http://localhost:5001/uploads/${image.split('/').pop()}`}
+					h={160}
+					fallbackSrc='https://placehold.co/600x400?text=Image+Not+Found'
+					onError={(e) => console.log('Image failed to load:', e)}
+					alt={name}
+				/> */}
+				<SimpleGrid cols={2}>
+					<div>
+						{/* <Image
+						// Update the src to use the correct backend URL and path
+						src={`http://localhost:5001/uploads/`}
+						h={160}
+						fallbackSrc='https://placehold.co/600x400?text=Image+Not+Found'
+						// onError={(e) => console.log('Image failed to load:', e)}
+						alt="Tops"
+					/> */}
+						1
+					</div>
+					<div>2</div>
+					<div>3</div>
+					<div>4</div>
+					<div>5</div>
+				</SimpleGrid>
+			</div>
+		</Flex>
+	);
 }
