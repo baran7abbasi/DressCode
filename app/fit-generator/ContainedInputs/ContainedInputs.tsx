@@ -10,6 +10,7 @@ import {
 	Flex,
 	Image,
 	SimpleGrid,
+	Divider,
 } from '@mantine/core';
 import classes from './ContainedInput.module.css';
 import { useEffect, useState } from 'react';
@@ -39,7 +40,6 @@ export function ContainedInputs() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
-	
 	const [occasion, setOccasion] = useState('');
 	const [weather, setWeather] = useState('');
 	const [top, sendTop] = useState('');
@@ -49,7 +49,6 @@ export function ContainedInputs() {
 	const [accessory, sendAccessory] = useState('');
 	const [generateOutfit, setGenerateOutfit] = useState('');
 	const [outfitted, setOutfit] = useState('');
-
 
 	useEffect(() => {
 		const fetchClothingItems = async () => {
@@ -146,24 +145,24 @@ export function ContainedInputs() {
 	const handleSelect = async (category: string, itemName: string | null) => {
 		const userId = getUserId();
 		if (!itemName) {
-			console.warn("Item name is null");
+			console.warn('Item name is null');
 			return; // Exit early if itemName is null
 		}
 		switch (category) {
 			case 'top':
-				sendTop(itemName)
+				sendTop(itemName);
 				break;
 			case 'bottom':
-				sendBottom(itemName)
+				sendBottom(itemName);
 				break;
 			case 'shoes':
-				sendShoes(itemName)
+				sendShoes(itemName);
 				break;
 			case 'jacket':
-				sendJacket(itemName)
+				sendJacket(itemName);
 				break;
 			case 'accessory':
-				sendAccessory(itemName)
+				sendAccessory(itemName);
 				break;
 			default:
 				console.warn(`Unhandled category: ${category}`);
@@ -219,54 +218,60 @@ export function ContainedInputs() {
 		setError(null);
 
 		if (top === null) {
-			sendTop(tops.toString())
-		}
-	
-		if (bottom === null) {
-			sendBottom(bottoms.toString())
-		}
-	
-		if (jacket === null) {
-			sendJacket(jackets.toString())
-		}
-	
-		if (shoe === null) {
-			sendShoes(shoes.toString())
-		}
-	
-		if (accessory === null) {
-			sendAccessory(accessories.toString())
-		}
-		
-		try {
-		  const response = await axios.post('http://localhost:5000/chat', {
-			occasion: occasion,
-			weather: weather,
-			top: tops,
-			bottom: bottoms,
-			shoes: shoes,
-			jacket: jackets,
-			accessory: accessories
-		  });
-	
-		  setGenerateOutfit(response.data.response);
-		} catch (error: any) {
-		  const errorMessage = error.response?.data?.error || error.message;
-		  setError(errorMessage);
-		  console.error('Error generating outfit:', errorMessage);
-		} finally {
-		  setLoading(false);
+			sendTop(tops.toString());
 		}
 
-		console.log(generateOutfit)
-	  };
+		if (bottom === null) {
+			sendBottom(bottoms.toString());
+		}
+
+		if (jacket === null) {
+			sendJacket(jackets.toString());
+		}
+
+		if (shoe === null) {
+			sendShoes(shoes.toString());
+		}
+
+		if (accessory === null) {
+			sendAccessory(accessories.toString());
+		}
+
+		try {
+			const response = await axios.post('http://localhost:5002/chat', {
+				occasion: occasion,
+				weather: weather,
+				top: tops,
+				bottom: bottoms,
+				shoes: shoes,
+				jacket: jackets,
+				accessory: accessories,
+			});
+			console.log('message recieved: ' + response.data.response);
+			setGenerateOutfit(response.data.response);
+		} catch (error: any) {
+			const errorMessage = error.response?.data?.error || error.message;
+			setError(errorMessage);
+			console.error('Error generating outfit:', errorMessage);
+		} finally {
+			setLoading(false);
+		}
+
+		console.log(generateOutfit);
+	};
 
 	return (
 		// CHANGED
-		<Flex style={{backgroundColor:"black", marginTop:"-30px", paddingTop:"30px"}}>
+		<Flex
+			style={{
+				backgroundColor: 'black',
+				marginTop: '-30px',
+				paddingTop: '30px',
+			}}
+		>
 			{/*  */}
 
-			<div className={classes.container} >
+			<div className={classes.container}>
 				<div className={classes.inputGroup}>
 					<Group className={classes.header} justify='space-between'>
 						<Text
@@ -293,16 +298,16 @@ export function ContainedInputs() {
 							item: {
 								color: 'white', // White text for items in dropdown
 								'&[data-hovered]': {
-								  backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
+									backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
 								},
 								'&[data-selected]': {
-								  color: 'white', // White text for selected item
+									color: 'white', // White text for selected item
 								},
-							  },
-							  input: {
+							},
+							input: {
 								color: 'white', // White text for selected item in input field
-							  },
-							})}
+							},
+						})}
 					/>
 
 					<TextInput
@@ -315,16 +320,16 @@ export function ContainedInputs() {
 							item: {
 								color: 'white', // White text for items in dropdown
 								'&[data-hovered]': {
-								  backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
+									backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
 								},
 								'&[data-selected]': {
-								  color: 'white', // White text for selected item
+									color: 'white', // White text for selected item
 								},
-							  },
-							  input: {
+							},
+							input: {
 								color: 'white', // White text for selected item in input field
-							  },
-							})}
+							},
+						})}
 					/>
 
 					<Select
@@ -337,21 +342,21 @@ export function ContainedInputs() {
 						onChange={(value) => handleSelect('top', value)}
 						styles={(theme) => ({
 							dropdown: {
-							  backgroundColor: 'white',
+								backgroundColor: 'white',
 							},
 							item: {
-							  color: 'white', // White text for items in dropdown
-							  '&[data-hovered]': {
-								backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
-							  },
-							  '&[data-selected]': {
-								color: 'white', // White text for selected item
-							  },
+								color: 'white', // White text for items in dropdown
+								'&[data-hovered]': {
+									backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
+								},
+								'&[data-selected]': {
+									color: 'white', // White text for selected item
+								},
 							},
 							input: {
-							  color: 'white', // White text for selected item in input field
+								color: 'white', // White text for selected item in input field
 							},
-						  })}
+						})}
 					/>
 					<Select
 						data={bottoms}
@@ -363,21 +368,21 @@ export function ContainedInputs() {
 						onChange={(value) => handleSelect('bottom', value)}
 						styles={(theme) => ({
 							dropdown: {
-							  backgroundColor: 'white',
+								backgroundColor: 'white',
 							},
 							item: {
-							  color: 'white', // White text for items in dropdown
-							  '&[data-hovered]': {
-								backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
-							  },
-							  '&[data-selected]': {
-								color: 'white', // White text for selected item
-							  },
+								color: 'white', // White text for items in dropdown
+								'&[data-hovered]': {
+									backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
+								},
+								'&[data-selected]': {
+									color: 'white', // White text for selected item
+								},
 							},
 							input: {
-							  color: 'white', // White text for selected item in input field
+								color: 'white', // White text for selected item in input field
 							},
-						  })}
+						})}
 					/>
 					<Select
 						data={shoes}
@@ -389,21 +394,21 @@ export function ContainedInputs() {
 						onChange={(value) => handleSelect('shoes', value)}
 						styles={(theme) => ({
 							dropdown: {
-							  backgroundColor: 'white',
+								backgroundColor: 'white',
 							},
 							item: {
-							  color: 'white', // White text for items in dropdown
-							  '&[data-hovered]': {
-								backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
-							  },
-							  '&[data-selected]': {
-								color: 'white', // White text for selected item
-							  },
+								color: 'white', // White text for items in dropdown
+								'&[data-hovered]': {
+									backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
+								},
+								'&[data-selected]': {
+									color: 'white', // White text for selected item
+								},
 							},
 							input: {
-							  color: 'white', // White text for selected item in input field
+								color: 'white', // White text for selected item in input field
 							},
-						  })}
+						})}
 					/>
 					<Select
 						data={jackets}
@@ -415,21 +420,21 @@ export function ContainedInputs() {
 						onChange={(value) => handleSelect('jacket', value)}
 						styles={(theme) => ({
 							dropdown: {
-							  backgroundColor: 'white',
+								backgroundColor: 'white',
 							},
 							item: {
-							  color: 'white', // White text for items in dropdown
-							  '&[data-hovered]': {
-								backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
-							  },
-							  '&[data-selected]': {
-								color: 'white', // White text for selected item
-							  },
+								color: 'white', // White text for items in dropdown
+								'&[data-hovered]': {
+									backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
+								},
+								'&[data-selected]': {
+									color: 'white', // White text for selected item
+								},
 							},
 							input: {
-							  color: 'white', // White text for selected item in input field
+								color: 'white', // White text for selected item in input field
 							},
-						  })}
+						})}
 					/>
 					<Select
 						data={accessories}
@@ -441,21 +446,21 @@ export function ContainedInputs() {
 						onChange={(value) => handleSelect('accessory', value)}
 						styles={(theme) => ({
 							dropdown: {
-							  backgroundColor: 'white',
+								backgroundColor: 'white',
 							},
 							item: {
-							  color: 'white', // White text for items in dropdown
-							  '&[data-hovered]': {
-								backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
-							  },
-							  '&[data-selected]': {
-								color: 'white', // White text for selected item
-							  },
+								color: 'white', // White text for items in dropdown
+								'&[data-hovered]': {
+									backgroundColor: 'var(--mantine-color-dark-6)', // Hover color
+								},
+								'&[data-selected]': {
+									color: 'white', // White text for selected item
+								},
 							},
 							input: {
-							  color: 'white', // White text for selected item in input field
+								color: 'white', // White text for selected item in input field
 							},
-						  })}
+						})}
 					/>
 
 					<div>
@@ -469,8 +474,12 @@ export function ContainedInputs() {
 							}}
 						>
 							Generate
-							{/* <Text>{generatedOutfit}</Text> */}
 						</Button>
+						<div>
+							<Text style={{ color: 'white' }}>Generated Outfit:</Text>
+							<Divider my='md' />
+							<Text style={{ color: 'white' }}>{generateOutfit}</Text>
+						</div>
 					</div>
 				</div>
 			</div>
