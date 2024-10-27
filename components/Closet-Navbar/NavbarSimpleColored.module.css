@@ -5,6 +5,7 @@
 	flex-direction: column;
 	background-color: var(--mantine-color-dark-5);
 	height: 85vh; /* Make it full height */
+	margin-left: 20px;
 }
 
 .navbarMain {
