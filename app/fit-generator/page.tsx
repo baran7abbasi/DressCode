@@ -6,7 +6,7 @@ import { BadgeCard } from './BadgeCard/BadgeCard';
 
 export default function FitGenerator() {
 	return (
-		<Stack p={16}>
+		<Stack>
 			<HeaderMegaMenu />
 			{/* <div style={{ display: 'flex', width: '100%' }}> */}
 
