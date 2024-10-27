@@ -8,6 +8,7 @@ import {
 	Code,
 	Group,
 	Flex,
+	Image,
 	SimpleGrid,
 } from '@mantine/core';
 import classes from './ContainedInput.module.css';
@@ -29,8 +30,17 @@ export function ContainedInputs() {
 	const [shoes, setShoes] = useState<string[]>([]);
 	const [jackets, setJackets] = useState<string[]>([]);
 	const [accessories, setAccessories] = useState<string[]>([]);
+	const [selectedTop, setSelectedTop] = useState<string>(''); // Default to empty string
+	const [selectedBottom, setSelectedBottom] = useState<string>(''); // Default to empty string
+	const [selectedShoes, setSelectedShoes] = useState<string>(''); // Default to empty string
+	const [selectedJacket, setSelectedJacket] = useState<string>(''); // Default to empty string
+	const [selectedAccessory, setSelectedAccessory] = useState<string>('');
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+
+	
+	const [occasion, setOccasion] = useState('');
+	const [weather, setWeather] = useState('');
 
 	useEffect(() => {
 		const fetchClothingItems = async () => {
@@ -124,8 +134,78 @@ export function ContainedInputs() {
 		fetchClothingItems();
 	}, []);
 
+	const handleSelect = async (category: string, itemName: string | null) => {
+		const userId = getUserId();
+		console.log('this is the category: ' + category);
+		console.log('and this is the item name: ' + itemName);
+
+		// Only proceed if there's an item name
+		if (!itemName) return;
+
+		try {
+			// Fetch the full item data based on the name and userId
+			const response = await axios.get(`http://localhost:5001/clothing`, {
+				params: { name: itemName, userId },
+			});
+
+			const item = response.data[0];
+			const itemPath = item?.path || '';
+
+			console.log('this is teh response we get back: ' + itemPath);
+
+			// Set the path based on category
+			switch (category) {
+				case 'top':
+					console.log('the top path is : ' + itemPath);
+					setSelectedTop(itemPath);
+					break;
+				case 'bottom':
+					setSelectedBottom(itemPath);
+					break;
+				case 'shoes':
+					setSelectedShoes(itemPath);
+					break;
+				case 'jacket':
+					setSelectedJacket(itemPath);
+					break;
+				case 'accessory':
+					setSelectedAccessory(itemPath);
+					break;
+				default:
+					console.warn(`Unhandled category: ${category}`);
+			}
+		} catch (error) {
+			console.error('Error fetching item path:', error);
+		}
+	};
+
 	if (loading) return <Text>Loading...</Text>;
-	if (error) return <Text color='red'>{error}</Text>;
+	if (error) return <Text c='red'>{error}</Text>;
+
+	const handleGenerate = async () => {
+		setLoading(true);
+		setError(null);
+		
+		try {
+		  const response = await axios.post('http://localhost:5000/chat', {
+			occasion: occasion,
+			weather: weather,
+			top: selectedTop,
+			bottom: selectedBottom,
+			shoes: selectedShoes,
+			jacket: selectedJacket,
+			accessory: selectedAccessory
+		  });
+	
+		  setGeneratedOutfit(response.data.response);
+		} catch (error: any) {
+		  const errorMessage = error.response?.data?.error || error.message;
+		  setError(errorMessage);
+		  console.error('Error generating outfit:', errorMessage);
+		} finally {
+		  setLoading(false);
+		}
+	  };
 
 	return (
 		<Flex>
@@ -149,60 +229,69 @@ export function ContainedInputs() {
 					<TextInput
 						label='Occasion'
 						placeholder='Fancy Dinner, College Class, etc.'
+						value={occasion}
+						onChange={(e) => setOccasion(e.currentTarget.value)}
 						classNames={classes}
 					/>
 
 					<TextInput
 						label='Weather Outside'
 						placeholder='75 degrees, super chilly, windy, etc'
+						value={weather}
+						onChange={(e) => setWeather(e.currentTarget.value)}
 						classNames={classes}
 					/>
 
 					<Select
-						mt='md'
-						comboboxProps={{ withinPortal: true }}
 						data={tops}
-						placeholder='Pick a top or leave empty for us to choose for you'
 						label='Tops'
-						classNames={classes}
-					/>
-					<Select
 						mt='md'
 						comboboxProps={{ withinPortal: true }}
+						placeholder='Pick a top or leave empty for us to choose for you'
+						classNames={classes}
+						onChange={(value) => handleSelect('top', value)}
+					/>
+					<Select
 						data={bottoms}
-						placeholder='Pick a bottom or leave empty for us to choose for you'
 						label='Bottoms'
-						classNames={classes}
-					/>
-					<Select
 						mt='md'
 						comboboxProps={{ withinPortal: true }}
+						placeholder='Pick a bottom or leave empty for us to choose for you'
+						classNames={classes}
+						onChange={(value) => handleSelect('bottom', value)}
+					/>
+					<Select
 						data={shoes}
-						placeholder='Pick shoes or leave empty for us to choose for you'
 						label='Shoes'
-						classNames={classes}
-					/>
-					<Select
 						mt='md'
 						comboboxProps={{ withinPortal: true }}
+						placeholder='Pick a pair of shoes or leave empty for us to choose for you'
+						classNames={classes}
+						onChange={(value) => handleSelect('shoes', value)}
+					/>
+					<Select
 						data={jackets}
-						placeholder='Pick a jacket/sweater or leave empty for us to choose for you'
 						label='Jackets/Sweaters'
-						classNames={classes}
-					/>
-					<Select
 						mt='md'
 						comboboxProps={{ withinPortal: true }}
-						data={accessories}
-						placeholder='Pick an accessory or leave empty for us to choose for you'
-						label='Accessories'
+						placeholder='Pick a jacket/sweater or leave empty for us to choose for you'
 						classNames={classes}
+						onChange={(value) => handleSelect('jacket', value)}
+					/>
+					<Select
+						data={accessories}
+						label='Accessories'
+						mt='md'
+						comboboxProps={{ withinPortal: true }}
+						placeholder='Pick an accessory or leave empty for us to choose for you'
+						classNames={classes}
+						onChange={(value) => handleSelect('accessory', value)}
 					/>
 
 					<div>
 						<Button
 							component='a'
-							href=''
+							onClick={handleGenerate}
 							style={{
 								alignSelf: 'center',
 								backgroundColor: 'var(--mantine-color-pink-5)', // Corrected style syntax
@@ -210,49 +299,48 @@ export function ContainedInputs() {
 							}}
 						>
 							Generate
+							<Text>{generatedOutfit}</Text>
 						</Button>
 					</div>
-
-					{/* Display Generated Outfit */}
-					{/* {generatedOutfit && (
-          <Stack className={classes.generatedOutfit}>
-            <Text size='lg' weight={600}>
-              Generated Outfit:
-            </Text>
-            <Text>Season: {generatedOutfit.season}</Text>
-            <Text>Tops: {generatedOutfit.tops}</Text>
-            <Text>Bottoms: {generatedOutfit.bottoms}</Text>
-            <Text>Jackets: {generatedOutfit.jackets}</Text>
-            <Text>Shoes: {generatedOutfit.shoes}</Text>
-          </Stack>
-        )} */}
 				</div>
 			</div>
 			<div className={classes.outfitGeneration}>
-				{/* <Image
-					// Update the src to use the correct backend URL and path
-					src={`http://localhost:5001/uploads/${image.split('/').pop()}`}
-					h={160}
-					fallbackSrc='https://placehold.co/600x400?text=Image+Not+Found'
-					onError={(e) => console.log('Image failed to load:', e)}
-					alt={name}
-				/> */}
 				<SimpleGrid cols={2}>
 					<div>
-						{/* <Image
-						// Update the src to use the correct backend URL and path
-						src={`http://localhost:5001/uploads/`}
-						h={160}
-						fallbackSrc='https://placehold.co/600x400?text=Image+Not+Found'
-						// onError={(e) => console.log('Image failed to load:', e)}
-						alt="Tops"
-					/> */}
-						1
+						<Image
+							src={`http://localhost:5001/uploads/${selectedTop}`}
+							fallbackSrc='https://placehold.co/600x400?text=Placeholder'
+							alt='Top'
+						/>
 					</div>
-					<div>2</div>
-					<div>3</div>
-					<div>4</div>
-					<div>5</div>
+					<div>
+						<Image
+							src={`http://localhost:5001/uploads/${selectedAccessory}`}
+							fallbackSrc='https://placehold.co/600x400?text=Placeholder'
+							alt='Accessory'
+						/>
+					</div>
+					<div>
+						<Image
+							src={`http://localhost:5001/uploads/${selectedBottom}`}
+							fallbackSrc='https://placehold.co/600x400?text=Placeholder'
+							alt='Bottom'
+						/>
+					</div>
+					<div>
+						<Image
+							src={`http://localhost:5001/uploads/${selectedJacket}`}
+							fallbackSrc='https://placehold.co/600x400?text=Placeholder'
+							alt='Jacket/Sweater'
+						/>
+					</div>
+					<div>
+						<Image
+							src={`http://localhost:5001/uploads/${selectedShoes}`}
+							fallbackSrc='https://placehold.co/600x400?text=Placeholder'
+							alt='Shoes'
+						/>
+					</div>
 				</SimpleGrid>
 			</div>
 		</Flex>

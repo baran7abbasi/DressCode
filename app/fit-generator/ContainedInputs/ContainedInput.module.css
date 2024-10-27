@@ -2,14 +2,18 @@
 	display: flex; /* Use flexbox */
 	justify-content: left; /* Align content to the right */
 	width: 50%; /* Full width */
-	margin-right: -200px;
 }
 
 .outfitGeneration {
 	display: flex; /* Use flexbox */
 	justify-content: right; /* Align content to the right */
 	width: 50%; /* Full width */
-	margin-left: -200px;
+	padding-left: 16px;
+}
+
+.imageGeneration {
+	height: 200px;
+	width: auto;
 }
 
 .inputGroup {

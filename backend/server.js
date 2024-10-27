@@ -149,23 +149,27 @@ app.post('/upload', upload.single('image'), async (req, res) => {
 
 app.get('/clothing', async (req, res) => {
 	try {
-		const { category, userId } = req.query;
+		const { category, userId, name } = req.query;
 
 		if (!userId) {
 			return res.status(400).json({ error: 'User ID is required' });
 		}
 
+		// Build query with userId and optional category and name
 		const query = { userId };
-		if (category) {
-			query.category = category;
-		}
+		if (category) query.category = category;
+		if (name) query.name = name;
 
 		const clothingItems = await Image.find(query);
 
-		const transformedItems = clothingItems.map((item) => ({
-			...item.toObject(),
-			path: item.path.split('/').pop(),
-		}));
+		// Transform path if items are found
+		const transformedItems = clothingItems.map((item) => {
+			const transformed = {
+				...item.toObject(),
+				path: item.path.split('/').pop(),
+			};
+			return transformed;
+		});
 
 		res.json(transformedItems);
 	} catch (error) {

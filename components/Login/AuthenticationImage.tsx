@@ -102,6 +102,17 @@ export function AuthenticationImage() {
 								form.setFieldValue('name', event.currentTarget.value)
 							}
 							radius='md'
+							styles={{
+								input: {
+									backgroundColor: 'var(--mantine-color-dark-8)',
+									color: 'white',
+									border: '1px solid transparent', // Default border
+									'&:focus': {
+										borderColor: 'transparent', // Remove the default blue border
+										outline: '2px solid var(--mantine-color-pink-6)', // Add pink outline on focus
+									},
+								},
+							}}
 						/>
 					)}
 
@@ -115,6 +126,17 @@ export function AuthenticationImage() {
 						}
 						error={form.errors.email && 'Invalid email'}
 						radius='md'
+						styles={{
+							input: {
+								backgroundColor: 'var(--mantine-color-dark-8)',
+								color: 'white',
+								border: '1px solid transparent', // Default border
+								'&:focus': {
+									borderColor: 'transparent', // Remove the default blue border
+									outline: '2px solid var(--mantine-color-pink-6)', // Add pink outline on focus
+								},
+							},
+						}}
 					/>
 
 					<PasswordInput
@@ -127,6 +149,17 @@ export function AuthenticationImage() {
 						}
 						error={form.errors.password && passwordError}
 						radius='md'
+						styles={{
+							input: {
+								backgroundColor: 'var(--mantine-color-dark-8)',
+								color: 'white',
+								border: '1px solid transparent', // Default border
+								'&:focus': {
+									borderColor: 'transparent', // Remove the default blue border
+									outline: '2px solid var(--mantine-color-pink-6)', // Add pink outline on focus
+								},
+							},
+						}}
 					/>
 
 					{type === 'register' && (
@@ -136,6 +169,22 @@ export function AuthenticationImage() {
 							onChange={(event) =>
 								form.setFieldValue('terms', event.currentTarget.checked)
 							}
+							styles={{
+								input: {
+									backgroundColor: 'var(--mantine-color-dark-8)', // Dark grey background when unchecked
+									borderColor: 'transparent', // No border color
+									'&[data-checked]': {
+										backgroundColor: 'var(--mantine-color-pink-6)', // Pink background when checked
+										borderColor: 'transparent', // Keep border transparent
+									},
+									'&:hover': {
+										backgroundColor: 'var(--mantine-color-dark-7)', // Darker grey on hover
+									},
+								},
+								label: {
+									color: 'white', // Change label color to white
+								},
+							}}
 						/>
 					)}
 				</Stack>
