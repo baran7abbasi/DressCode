@@ -105,25 +105,21 @@ export function HeaderMegaMenu() {
 						onOpen={() => setUserMenuOpened(true)}
 						withinPortal
 					>
-						<Menu.Target>
-							<UnstyledButton
+						<Menu.Target >
+							<UnstyledButton style={{ height:"100%" }}
 								className={cx(classes.user, {
 									[classes.userActive]: userMenuOpened,
 								})}
 							>
-								<Group gap={7}>
+								<Group gap={0} visibleFrom='sm' style={{ height:"100%" }}>
 									{user ? (
-										<Text fw={500} size='sm' lh={1} mr={3}>
+										<Text>
 											{user}
-											<a href='/' className={classes.link}>
-												Log Out
-											</a>
 										</Text>
-									) : (
-										<a href='/' className={classes.link}>
-											Log Out
-										</a>
-									)}
+									) : null}
+									<a href='/' className={classes.link}>
+										Log Out
+									</a>
 								</Group>
 							</UnstyledButton>
 						</Menu.Target>
