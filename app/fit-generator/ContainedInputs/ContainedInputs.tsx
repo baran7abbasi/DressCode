@@ -305,7 +305,7 @@ export function ContainedInputs() {
 				</div>
 			</div>
 			<div className={classes.outfitGeneration}>
-				<SimpleGrid cols={2}>
+				<SimpleGrid cols={2} mb='20px' mr='20px'>
 					<div>
 						<Image
 							src={`http://localhost:5001/uploads/${selectedTop}`}
