@@ -4,6 +4,8 @@
 	display: flex;
 	flex-direction: column;
 	background-color: var(--mantine-color-dark-5);
+	border-radius: 15px;
+	margin-top: -50px;
 }
 
 .navbarMain {
@@ -66,3 +68,4 @@
 	width: rem(25px);
 	height: rem(25px);
 }
+
