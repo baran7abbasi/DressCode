@@ -16,7 +16,7 @@ import About from './about/page';
 import Tops from './tops/page';
 import Bottoms from './bottoms/page';
 import Shoes from './shoes/page';
-import Jackets from './jackets/page';
+import Jackets from './jacketssweaters/page';
 import Accessories from './accessories/page';
 import AddNew from './add-new/page';
 
@@ -73,7 +73,7 @@ export function NavbarSimpleColored() {
 	));
 
 	return (
-		<div style={{ display: 'flex' }}>
+		<div style={{ display: 'flex', height: '100%', width: '100vw' }}>
 			<nav className={classes.navbar}>
 				<div className={classes.navbarMain}>
 					<Group className={classes.header} justify='space-between'>
@@ -94,7 +94,9 @@ export function NavbarSimpleColored() {
 					{links}
 				</div>
 			</nav>
-			<div style={{ padding: '20px', flexGrow: 1 }}>{pageContent[active]}</div>
+			<div style={{ padding: '20px', flexGrow: 1, height: '100vh' }}>
+				{pageContent[active]}
+			</div>
 		</div>
 	);
 }

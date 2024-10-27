@@ -1,20 +1,30 @@
 .wrapper {
-  position: relative;
-  margin-bottom: rem(30px);
+	position: relative;
+	margin-bottom: rem(30px);
 }
 
 .dropzone {
-  border-width: rem(1px);
-  padding-bottom: rem(50px);
+	border-width: rem(1px);
+	padding-bottom: rem(50px);
+	color: var(--mantine-color-pink-6);
 }
 
 .icon {
-  color: light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-3));
+	color: light-dark(var(--mantine-color-pink-6), var(--mantine-color-pink-6));
 }
 
 .control {
-  position: absolute;
-  width: rem(250px);
-  left: calc(50% - rem(125px));
-  bottom: rem(-20px);
+	position: absolute;
+	width: rem(250px);
+	left: calc(50% - rem(125px));
+	bottom: rem(-20px);
+	color: var(--mantine-color-dark-5);
+	background-color: var(--mantine-color-pink-6);
+}
+
+.control:hover {
+	background-color: var(
+		--mantine-color-pink-7
+	); /* Darker shade on hover (optional) */
+	color: var(--mantine-color-gray-3);
 }

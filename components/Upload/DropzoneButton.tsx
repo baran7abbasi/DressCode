@@ -1,11 +1,12 @@
 'use client';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Text, Group, Button, rem, useMantineTheme } from '@mantine/core';
-import { Dropzone, MIME_TYPES } from '@mantine/dropzone';
+import { Dropzone, FileWithPath, MIME_TYPES } from '@mantine/dropzone';
 import { IconCloudUpload, IconX, IconDownload } from '@tabler/icons-react';
 import classes from './DropzoneButton.module.css';
 
-export function DropzoneButton() {
+// Accept onUpload as a prop
+export function DropzoneButton({ onUpload }) {
 	const theme = useMantineTheme();
 	const openRef = useRef<() => void>(null);
 
@@ -13,23 +14,24 @@ export function DropzoneButton() {
 		<div className={classes.wrapper}>
 			<Dropzone
 				openRef={openRef}
-				onDrop={() => {}}
 				className={classes.dropzone}
 				radius='md'
-				accept={[
-					MIME_TYPES.png,
-					MIME_TYPES.jpeg,
-					MIME_TYPES.svg,
-					MIME_TYPES.gif,
-				]} //'image/*' // Accept only image files
+				accept={[MIME_TYPES.png, MIME_TYPES.jpeg]} // Accept only image files
 				maxSize={30 * 1024 ** 2} // 30 MB limit
+				onDrop={(files) => {
+					onUpload(files); // Call the onUpload prop with the dropped files
+					openRef.current?.();
+				}}
 			>
-				<div style={{ pointerEvents: 'none' }}>
+				<div>
 					<Group justify='center'>
 						<Dropzone.Accept>
 							<IconDownload
-								style={{ width: rem(50), height: rem(50) }}
-								color={theme.colors.blue[6]}
+								style={{
+									width: rem(50),
+									height: rem(50),
+									color: 'var(--mantine-color-pink-6)',
+								}}
 								stroke={1.5}
 							/>
 						</Dropzone.Accept>
@@ -64,7 +66,9 @@ export function DropzoneButton() {
 				className={classes.control}
 				size='md'
 				radius='xl'
-				onClick={() => openRef.current?.()}
+				onClick={() => {
+					openRef.current?.();
+				}}
 			>
 				Select files
 			</Button>

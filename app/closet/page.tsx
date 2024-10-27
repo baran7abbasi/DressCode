@@ -1,15 +1,13 @@
 import { Button, Stack } from '@mantine/core';
 import { NavbarSimpleColored } from '../../components/Closet-Navbar/NavbarSimpleColored';
+import { HeaderMegaMenu } from '../HeaderMegaMenu/HeaderMegaMenu';
 
 export default function Closet() {
 	return (
 		<Stack p={16}>
-			welcome to your closet! tops- bottoms jackets/sweaters shoes accessories
-			add to your closet-
+			<HeaderMegaMenu/>
 			<NavbarSimpleColored />
-			<Button component='a' href='/dashboard' style={{ alignSelf: 'center' }}>
-				Back to Home
-			</Button>
 		</Stack>
 	);
 }
+

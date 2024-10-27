@@ -1,0 +1,1 @@
+export { NavbarSimpleColored } from "./NavbarSimpleColored";
