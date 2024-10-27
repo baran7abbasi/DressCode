@@ -14,77 +14,55 @@ app = Flask(__name__)
 CORS(app)
 
 def generateFit(data):
-    data_top = data.get('top', '')
-    data_bottom = data.get('bottom', '')
-    data_shoes = data.get('shoes', '')
-    data_accessory = data.get('accessory', '')
-    data_occasion = data.get('occasion', '')
-    data_weather = data.get('weather', '')
+    data_top = data.get('top', '') or ' '
+    data_bottom = data.get('bottom', '') or ' '
+    data_shoes = data.get('shoes', '') or ' '
+    data_jacket = data.get('jacket', '') or ' '
+    data_accessory = data.get('accessory', '') or ' '
+    data_occasion = data.get('occasion', '') or ' '
+    data_weather = data.get('weather', '') or ' '
 
-    """
-    try {
-      const response = await fetch('http://127.0.0.1:5000/chat', { 
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          input1: input1,
-          input2: input2,
-		  input3: input3,
-		  input4: input4,
-		  input5: input5
-        }),
-      });
+    
+    message = client.messages.create(
+        model="claude-3-sonnet-20240229",  # Use the current model string
+        max_tokens=1000,
+        temperature=0.8,
+        system="You are a fashion icon. You understand color theory, the 2/3rds rule, the 7-point outfit goal, and current fashion trends.",
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": f"""Using '{data_top}', suggest a cohesive outfit 
+                        for a {data_occasion} on a {data_weather} day. If presented with a list for a variable, choose one that matches the outfit.
 
-      const data = await response.json();
-      setResponse(data.response);
-    } catch (error) {
-        console.error('Error:', error);
-        setResponse('Error occurred while fetching response');
-    } finally {
-        setLoading(false);
-    }
-    """
+                        One of the items, {data_top}, {data_bottom}, {data_jacket}, {data_shoes}, {data_accessory} will only have one item in the string, so use that. The others will have multiple pieces in the string and will
+                        require you to choose from one of the many provided options in the passed in value.
+                        Only use provided items, please, but be stylish.
 
-    try:
-        message = client.messages.create(
-            #model="claude-3-5-sonnet-20241022",
-            model="claude-3-opus-20240229",
-            max_tokens=1000,
-            temperature=0.6,
-            system="You are a fashion icon. You are the moment. You understand color theory, the 2/3rds rule, the 7-point outfit goal, and current fashion trends.Provide the best fashion advice ever to create cohesive outfits that meet the set qualities.\n",
-            message = [
-                {
-                    "role": "system",
-                    "content": "You are a fashion icon. You understand color theory, the 2/3rds rule, the 7-point outfit goal, and current fashion trends. Provide the best fashion advice ever to create cohesive outfits that meet the set qualities."
-                },
-                {
-                    "role":"user",
-                    "content": [
-                        {
-                            "type": "text",
-                            "content": f"Using '{data_top}', suggest a cohesive outfit "
-                                        f"for a {data_occasion} on a {data_weather} day. Create a fit with top, bottom, shoes, and an accessory"
-                                        f"the output should be in the following format"
-                                        f"Occasion: '{data_occasion}'\n"
-                                        f"Weather: '{data_weather}'\n"
-                                        f"Top: ' {data_top}\n'"
-                                        f"Bottoms: '{data_bottom}'\n"
-                                        f"Shoes: '{data_shoes}'\n"
-                                        f"Accessory: '{data_accessory}'\n"
-        
-                        }
-                    ]
-                }
-            ]
+                        Create a fit with top, bottom, shoes, and an accessory, using the selected item
+                        the output should be in the following format:
+                        Occasion: '{data_occasion}'
+                        Weather: '{data_weather}'
+                        Top: '{data_top}'
+                        Bottoms: '{data_bottom}'
+                        Jacket: '{data_jacket}'
+                        Shoes: '{data_shoes}'
+                        Accessory: '{data_accessory}'"""
+                    }
+                ]
+            }
+        ]
+    )
             
-        ) 
-        return message
+    return message.content[0].text
+    """
     except Exception as e:
         print(f"Error generating fit: {e}")
         return {"choices": [{"message": {"content": "Error occurred while generating the outfit."}}]}
 
+    """
     #print(message.content[0].text)
 
 @app.route('/chat', methods=['POST'])
@@ -92,7 +70,7 @@ def generate_outfit():
     data = request.json
     outfit = generateFit(data)
     return jsonify({
-        "response": outfit['choices'][0]['message']['content']
+        "response": outfit
     })
 
 """
