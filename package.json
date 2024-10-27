@@ -17,7 +17,7 @@
 		"@mantinex/mantine-logo": "^1.0.1",
 		"@nlxai/chat-core": "^0.1.51",
 		"@nlxai/chat-react": "^0.1.51",
-		"@nlxai/chat-widget": "^0.1.51",
+		"@nlxai/chat-widget": "^0.1.53",
 		"@nlxai/multimodal": "^0.1.51",
 		"@tabler/icons-react": "^3.20.0",
 		"axios": "^1.7.7",
