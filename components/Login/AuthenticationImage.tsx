@@ -173,7 +173,7 @@ export function AuthenticationImage() {
 								input: {
 									backgroundColor: 'var(--mantine-color-dark-8)', // Dark grey background when unchecked
 									borderColor: 'transparent', // No border color
-									'&[data-checked]': {
+									'&[dataChecked]': {
 										backgroundColor: 'var(--mantine-color-pink-6)', // Pink background when checked
 										borderColor: 'transparent', // Keep border transparent
 									},

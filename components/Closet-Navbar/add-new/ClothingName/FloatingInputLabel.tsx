@@ -26,6 +26,7 @@ export function FloatingLabelInput({ onChange }) {
 			</Text>
 			<TextInput
 				label='Clothing Article'
+				color='var(--mantine-color-white)'
 				placeholder='EX: tight cropped black-tee'
 				required
 				classNames={classes}

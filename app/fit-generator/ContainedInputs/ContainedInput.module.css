@@ -2,6 +2,7 @@
 	display: flex; /* Use flexbox */
 	justify-content: left; /* Align content to the right */
 	width: 50%; /* Full width */
+	height: 100%;
 }
 
 .outfitGeneration {
@@ -12,7 +13,7 @@
 }
 
 .imageGeneration {
-	height: 200px;
+	height: 125px;
 	width: auto;
 }
 
@@ -20,6 +21,7 @@
 	border-radius: 50px;
 	justify-content: left;
 	width: 100%; /* Take up half the page */
+	margin-left: 10px;
 	padding: 30px 70px 30px 40px; /* Optional padding for aesthetics */
 	background-color: var(--mantine-color-dark-5);
 }
@@ -32,6 +34,8 @@
 	height: rem(54px);
 	padding-top: rem(18px);
 	margin: 20px 20px 20px 0;
+	border-color: var(--mantine-color-dark-8);
+	background-color: var(--mantine-color-dark-6);
 }
 
 .input:focus {
@@ -45,6 +49,7 @@
 	padding-left: rem(10px);
 	padding-top: calc(var(--mantine-spacing-sm) / 2);
 	z-index: 1;
+	color: white;
 }
 
 .header {
@@ -52,6 +57,12 @@
 	margin-bottom: calc(var(--mantine-spacing-md) * 1.5);
 	border-bottom: rem(1px) solid var(--mantine-color-dark-7);
 }
+
+.version {
+	background-color: var(--mantine-color-dark-7);
+	color: var(--mantine-color-pink-6);
+}
+
 
 .version {
 	background-color: var(--mantine-color-dark-7);
