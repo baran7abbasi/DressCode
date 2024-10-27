@@ -10,7 +10,7 @@ export default function Dashboard() {
 			style={{ backgroundColor: '#000', minHeight: '100vh', color: 'white' }}
 		>
 			<HeaderMegaMenu />
-			{/*<FeaturesTitle />*/}
+			<FeaturesTitle />
 		</Stack>
 	);
 }
