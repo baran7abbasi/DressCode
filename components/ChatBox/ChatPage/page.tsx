@@ -3,9 +3,8 @@
 import { useEffect, useState } from 'react';
 import { useChat } from "@nlxai/chat-react"; // Ensure this library is installed
 import { TextInput, Button, Box, ScrollArea, FileButton, Group, Text } from '@mantine/core';
-import axios from 'axios';
 import styles from './ChatPage.module.css';
-import { getUserId } from '../../../utility/authUtility';
+import { IconArrowRight } from '@tabler/icons-react';
 
 const ChatPage: React.FC = () => {
     const [welcomeMessage] = useState("Welcome to Ask Your Closet! What can I find for you?");
@@ -83,7 +82,7 @@ const ChatPage: React.FC = () => {
                     }}
                     radius="md"
                 >
-                    Send
+                    <IconArrowRight />
                 </Button>
             </Group>
         </Box>

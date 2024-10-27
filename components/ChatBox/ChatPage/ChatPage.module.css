@@ -20,7 +20,9 @@
 }
 
 .inputGroup {
-    background-color: #f1f1f1;
+    width: 100%;
+    display: inline-flex;
+    background-color: var(--mantine-color-dark-5);
     border-radius: 8px;
     padding: 5px;
     border-color: var(--mantine-color-pink-6);
@@ -29,7 +31,9 @@
     };
 }
 .inputGroup TextInput {
-    width: auto;
+    padding: 2.5px;
+    min-width: 1200px;
+    background-color: var(--mantine-color-dark-5);
 }
 
 .userchat, .botchat {
