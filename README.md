@@ -1,5 +1,7 @@
-# Mantine Next Template
+# DressCode
 
-Get started with the template by clicking `Use this template` button on the top of the page.
+app: filled with the code for the main pages: login, dashboard, generate-fit, your closet, and ask you closet
+components: components that make the main pages what they are
+backend: the mongo db get and post
 
-[Documentation](https://mantine.dev/guides/next/)
+
